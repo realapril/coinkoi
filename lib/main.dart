@@ -1,4 +1,4 @@
-import 'package:coinkoi/home_screen.dart';
+import 'package:coinkoi/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         // scaffoldBackgroundColor: Colors.grey.shade900,
         // primaryColor: Colors.black,
         // colorScheme: ColorScheme.dark(),
+
         brightness: Brightness.dark,
-        primarySwatch: Colors.orange,
-        primaryColor: Colors.blueGrey,
+        primaryColor: const Color(0xFFcc5533),
       ),
       home: Home(),
     );
