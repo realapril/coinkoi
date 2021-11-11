@@ -1,18 +1,21 @@
-import 'package:coinkoi/screen/calculator_screen.dart';
-import 'package:coinkoi/screen/more_screen.dart';
-import 'package:coinkoi/screen/portfolio_screen.dart';
+import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/modules/calculator_screen.dart';
+import 'package:coinkoi/modules/more_screen.dart';
+import 'package:coinkoi/modules/portfolio_module/portfolio_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-class Home extends StatelessWidget {
+class BottomNavigationScreen extends StatelessWidget {
   final BottomNavController navController = Get.put(BottomNavController());
   final List<Widget> bodyContent=[
     const PortfolioScreen(),
     const CalculatorScreen(),
     const MoreScreen(),
   ];
+
+  BottomNavigationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class Home extends StatelessWidget {
       ),
       bottomNavigationBar: Obx(
         ()=>BottomNavigationBar(
-          selectedItemColor: const Color(0xFFcc5533),
+          selectedItemColor: koiColor,
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(

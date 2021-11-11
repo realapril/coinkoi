@@ -1,4 +1,5 @@
-import 'package:coinkoi/screen/home_screen.dart';
+import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/modules/btm_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,9 +21,9 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.dark(),
 
         brightness: Brightness.dark,
-        primaryColor: const Color(0xFFcc5533),
+        primaryColor: koiColor,
       ),
-      home: Home(),
+      home: BottomNavigationScreen(),
     );
   }
 }
