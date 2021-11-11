@@ -20,6 +20,11 @@ class _Portfolio extends State<PortfolioScreen>{
         child: new SingleChildScrollView(
             child: new Column(
                 children: <Widget>[
+                  RaisedButton(
+                      onPressed: (){
+                        Get.toNamed("/detailPortfolio");
+                      },
+                  child: Text("move to detail protfolio"),)
 
                 ]
             )

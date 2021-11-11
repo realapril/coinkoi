@@ -1,7 +1,7 @@
 import 'package:coinkoi/core/theme/color_theme.dart';
 import 'package:coinkoi/modules/calculator_screen.dart';
 import 'package:coinkoi/modules/more_screen.dart';
-import 'package:coinkoi/modules/portfolio_module/portfolio_screen.dart';
+import 'package:coinkoi/modules/portfolio_module/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
