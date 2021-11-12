@@ -14,7 +14,10 @@ class _SearchListState extends State<SearchList> {
     super.initState();
     readJson();
   }
-  // List _items = [];
+  List<Coin> _coins=[];
+  List filteredNames = [];
+  List filteredSymbols =[];
+
 
   // Fetch content from the json file
   Future<void> readJson() async {
@@ -22,14 +25,15 @@ class _SearchListState extends State<SearchList> {
     final data = await json.decode(response);
     //final List keyList = data['data'].keys.toList();
 
-    List<Coin> coins=[];
 
-    Map myMap = data['data'];
+    Map<String, dynamic> myMap = data['data'];
     myMap.forEach((key, value){
-      coins.add(Coin.fromJson(value));
+      _coins.add(Coin.fromJson(value));
+      filteredNames.add(Coin.fromJson(value).name);
+      filteredSymbols.add(Coin.fromJson(value).symbol);
     });
 
-    print(coins[0]);
+    print(_coins[0]);
 
   }
 

@@ -7,7 +7,7 @@ class Coin{
   var price;
   Coin({required this.id, required this.name, required this.symbol, this.icon});
 
-  Coin.fromJson(Map<dynamic, dynamic> json)
+  Coin.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         symbol = json['symbol'],
