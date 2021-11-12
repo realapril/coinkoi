@@ -1,6 +1,6 @@
 import 'package:coinkoi/modules/btm_navigation.dart';
 import 'package:coinkoi/modules/calculator_screen.dart';
-import 'package:coinkoi/modules/coin_search_screen.dart';
+import 'package:coinkoi/modules/coin_search_module/screen.dart';
 import 'package:coinkoi/modules/detail_portfolio_screen.dart';
 import 'package:coinkoi/modules/edit_transaction_screen.dart';
 import 'package:coinkoi/modules/more_screen.dart';

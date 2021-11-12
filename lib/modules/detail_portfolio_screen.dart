@@ -1,3 +1,4 @@
+import 'package:coinkoi/data/model/model.dart';
 import 'package:coinkoi/modules/edit_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,11 +12,18 @@ class DetailPortfolioScreen extends StatelessWidget {
         title: Text("DetailPortfolio"),
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: (){
-            Get.toNamed('/editTransaction');
-          }
-        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RaisedButton(
+                onPressed: (){
+                  Get.toNamed('/editTransaction');
+                }
+            ),
+            // Text("${Get.arguments['symbol']}")
+            Text((Get.arguments as Coin).name)
+          ],
+        )
       )
     );
   }
