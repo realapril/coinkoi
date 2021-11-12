@@ -1,9 +1,27 @@
 
 class Coin{
-  var name;
+  int id;
+  String name;
+  String symbol;
   var icon;
-  var symbol;
   var price;
+  Coin({required this.id, required this.name, required this.symbol, this.icon});
+
+  Coin.fromJson(Map<dynamic, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        symbol = json['symbol'],
+        icon = json['assets/images/${json['id']}.png'];
+}
+
+
+class Currency{
+  int id;
+  String name;
+  String symbol;
+  var icon;
+
+  Currency({required this.id, required this.name, required this.symbol, this.icon});
 }
 
 class Transaction{
