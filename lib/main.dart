@@ -1,4 +1,5 @@
 import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/core/theme/text_theme.dart';
 import 'package:coinkoi/modules/btm_navigation.dart';
 import 'package:coinkoi/routes/pages.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
 
         brightness: Brightness.dark,
         primaryColor: koiColor,
+        textTheme: CustomTextTheme().customs,
       ),
       home: BottomNavigationScreen(),
       getPages: AppPages.pages,
