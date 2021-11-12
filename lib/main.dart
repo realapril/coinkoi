@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 
         brightness: Brightness.dark,
         primaryColor: koiColor,
-        textTheme: CustomTextTheme().customs,
+        //textTheme: CustomTextTheme().customs,
       ),
       home: BottomNavigationScreen(),
       getPages: AppPages.pages,

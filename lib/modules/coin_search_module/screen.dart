@@ -13,8 +13,11 @@ class CoinSearchScreen extends StatelessWidget {
       body:SafeArea(
         child: Column(
             children: [
+              const SizedBox(
+                height: 10,
+              ),
               Container(
-                decoration: BoxDecoration(color: Colors.red),
+                decoration: const BoxDecoration(color: Color(0xFF424242)),
                 child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
