@@ -20,25 +20,21 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
     readJson();
   }
   List<Coin> _coins=[];
-  List filteredNames = [];
-  List filteredSymbols =[];
+  List<Coin> _resultCoins=[];
 
 
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/jsonfiles/coinmarketcap.json');
     final data = await json.decode(response);
-    //final List keyList = data['data'].keys.toList();
 
 
     Map<String, dynamic> myMap = data['data'];
     myMap.forEach((key, value){
       _coins.add(Coin.fromJson(value));
-      filteredNames.add(Coin.fromJson(value).name);
-      filteredSymbols.add(Coin.fromJson(value).symbol);
     });
 
-    print(_coins[0]);
+    // print(_coins[0]);
 
   }
 
@@ -86,7 +82,11 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
                     ],
                   ),
                 )
-              )
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              _buildListView(),
             ],
           )
         ),
@@ -94,11 +94,24 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
     );
   }
 
+  Widget _buildListView(){
+    return Obx(()=> ListView.separated(
+      itemBuilder: (_, index){
+        return ListTile(
+          title: Text(""),
+          subtitle: Text(""),
+          leading: Icon(Icons.watch),
+        );
+      },
+      itemCount: 3,
+      separatorBuilder: (BuildContext context, int index) =>const Divider(),
+    ));
+  }
 
   void _runFilter(String query) {
 
     if (query.isEmpty) {
-      //results = _coins;
+      _resultCoins = _coins;
     } else {
       final coins = _coins.where((coin) {
         final nameLower = coin.name.toLowerCase();
@@ -109,14 +122,13 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
           symbolLower.contains(searchLower);
       }).toList();
 
-      setState(() {
-        // _foundUsers = results;
-        // results = coins;
-        print(coins);
-      });
+      // setState(() {
+      //   // _foundUsers = results;
+      //   // results = coins;
+      //   print(coins);
+      // }
+      // );
     }
-
-
   }
 
 }
