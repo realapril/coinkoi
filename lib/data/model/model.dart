@@ -11,7 +11,7 @@ class Coin{
       : id = json['id'],
         name = json['name'],
         symbol = json['symbol'],
-        icon = json['assets/images/${json['id']}.png'];
+        icon = 'assets/images/${json['id']}.png';
 }
 
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:coinkoi/data/model/model.dart';
-import 'package:coinkoi/modules/coin_search_module/local_widgets/listview.dart';
+import 'package:coinkoi/modules/coin_search_module/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,13 +14,13 @@ class CoinSearchScreen extends StatefulWidget {
 }
 
 class _CoinSearchScreen extends State<CoinSearchScreen> {
+  final CoinSearchController csController = Get.put(CoinSearchController());
+
   @override
   void initState() {
     super.initState();
     readJson();
   }
-  List<Coin> _coins=[];
-  List<Coin> _resultCoins=[];
 
 
   // Fetch content from the json file
@@ -31,10 +31,8 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
 
     Map<String, dynamic> myMap = data['data'];
     myMap.forEach((key, value){
-      _coins.add(Coin.fromJson(value));
+      csController.addCoin(Coin.fromJson(value));
     });
-
-    // print(_coins[0]);
 
   }
 
@@ -73,7 +71,7 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
                           decoration: const InputDecoration.collapsed(
                               hintText: 'Name or Symbol'
                           ),
-                          onChanged: (value) => _runFilter(value),
+                          onChanged: (value) => csController.runFilter(value),
                         ),
                       ),
                       const SizedBox(
@@ -90,45 +88,24 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
             ],
           )
         ),
-
     );
   }
 
   Widget _buildListView(){
     return Obx(()=> ListView.separated(
-      itemBuilder: (_, index){
+      itemBuilder: (content, index){
         return ListTile(
-          title: Text(""),
-          subtitle: Text(""),
-          leading: Icon(Icons.watch),
+          title: Text(csController.resCoins[index].name),
+          subtitle: Text(csController.resCoins[index].symbol),
+          leading: Image(image: AssetImage(csController.resCoins[index].icon)),
         );
       },
-      itemCount: 3,
-      separatorBuilder: (BuildContext context, int index) =>const Divider(),
+      itemCount: csController.resCoins.length,
+      separatorBuilder: (_, __) =>const Divider(),
+      shrinkWrap: true,
     ));
   }
 
-  void _runFilter(String query) {
 
-    if (query.isEmpty) {
-      _resultCoins = _coins;
-    } else {
-      final coins = _coins.where((coin) {
-        final nameLower = coin.name.toLowerCase();
-        final symbolLower = coin.symbol.toLowerCase();
-        final searchLower = query.toLowerCase();
-
-        return nameLower.contains(searchLower) ||
-          symbolLower.contains(searchLower);
-      }).toList();
-
-      // setState(() {
-      //   // _foundUsers = results;
-      //   // results = coins;
-      //   print(coins);
-      // }
-      // );
-    }
-  }
 
 }
