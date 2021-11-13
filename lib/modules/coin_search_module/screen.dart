@@ -100,6 +100,11 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
           title: Text(csController.resCoins[index].name),
           subtitle: Text(csController.resCoins[index].symbol),
           leading: Image(image: AssetImage(csController.resCoins[index].icon)),
+          onTap: (){
+            //TODO : save this coin into portfolio and close this screen
+            // csController.resCoins[index]
+            //Get.offAllNamed('/');
+          },
         );
       },
       itemCount: csController.resCoins.length,
