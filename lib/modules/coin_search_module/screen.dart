@@ -15,6 +15,7 @@ class CoinSearchScreen extends StatefulWidget {
 
 class _CoinSearchScreen extends State<CoinSearchScreen> {
   final CoinSearchController csController = Get.put(CoinSearchController());
+  final _controller = TextEditingController();
 
   @override
   void initState() {
@@ -28,16 +29,15 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
     final String response = await rootBundle.loadString('assets/jsonfiles/coinmarketcap.json');
     final data = await json.decode(response);
 
-
     Map<String, dynamic> myMap = data['data'];
     myMap.forEach((key, value){
       csController.addCoin(Coin.fromJson(value));
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Search"),
@@ -58,7 +58,8 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
                         padding: const EdgeInsets.all(10.0),
                         child: IconButton(
                             onPressed: (){
-                              //TODO
+                              _controller.clear();
+                              csController.runFilter('');
                             },
                             icon: const Icon(Icons.close)
                         ),
@@ -68,8 +69,9 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
                       ),
                       Expanded(
                         child: TextField(
+                          controller: _controller,
                           decoration: const InputDecoration.collapsed(
-                              hintText: 'Name or Symbol'
+                              hintText: 'Name or Symbol',
                           ),
                           onChanged: (value) => csController.runFilter(value),
                         ),
@@ -106,6 +108,12 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
     ));
   }
 
-
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _controller.dispose();
+    super.dispose();
+  }
 
 }

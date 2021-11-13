@@ -14,6 +14,16 @@ class CoinSearchController extends GetxController{
     resCoins.clear();
   }
 
+  // RxString query = "".obs;
+  // setQuery(String string){
+  //   query.value= string;
+  //   runFilter(query.value);
+  // }
+  // resetQuery(){
+  //   query.value= '';
+  //   runFilter(query.value);
+  // }
+
   void runFilter(String query) {
     if (query.isEmpty) {
       clearResCoin();
