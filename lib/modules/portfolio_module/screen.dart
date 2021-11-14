@@ -1,4 +1,5 @@
 import 'package:coinkoi/data/provider/db_provider.dart';
+import 'package:coinkoi/data/services/service.dart';
 import 'package:coinkoi/modules/portfolio_module/controller.dart';
 import 'package:coinkoi/modules/portfolio_module/local_widgets/appbar.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class _Portfolio extends State<PortfolioScreen> {
 
   @override
   void initState() {
-    pController.investmentDao.streamInvestments();
     super.initState();
   }
   @override
@@ -53,7 +53,7 @@ class _Portfolio extends State<PortfolioScreen> {
           ),
           _buildListViewTop(),
           StreamBuilder<List<SavedInvestmentData>>(
-            stream: pController.investmentDao.streamInvestments(),
+            stream: Get.find<DbService>().getStreamInvestments(),
             builder: (context, snapshot) {
               if(snapshot.hasData){
                 final data = snapshot.data!;

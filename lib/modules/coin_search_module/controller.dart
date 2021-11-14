@@ -1,5 +1,6 @@
 import 'package:coinkoi/data/model/model.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
+import 'package:coinkoi/data/services/service.dart';
 import 'package:get/get.dart';
 
 class CoinSearchController extends GetxController{
@@ -17,8 +18,8 @@ class CoinSearchController extends GetxController{
     resCoins.clear();
   }
 
-  var coinDao = AppDatabase().savedCoinDao;
-  var investmentDao = AppDatabase().savedInvestmentDao;
+  var coinDao = Get.find<DbService>().db.savedCoinDao;
+  var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
 
   void runFilter(String query) {
     if (query.isEmpty) {
