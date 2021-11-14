@@ -18,8 +18,21 @@ LazyDatabase openConnection() {
 
 @UseMoor(tables: [SavedInvestment, SavedCoin], daos: [SavedInvestmentDao, SavedCoinDao])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase(QueryExecutor e) : super(e);
+  // AppDatabase(QueryExecutor e) : super(e);
+  AppDatabase() : super(openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    // onUpgrade: (migrator, from, to) async {
+    //   if (from == 1) {
+    //     // migrator.deleteTable(todos.tableName);
+    //   }
+    // },
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA foreign_keys = ON');
+    },
+  );
 }

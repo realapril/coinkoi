@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:coinkoi/data/model/model.dart';
+import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/coin_search_module/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:moor/moor.dart' as m;
 
 class CoinSearchScreen extends StatefulWidget {
   const CoinSearchScreen({Key? key}) : super(key: key);
@@ -101,9 +103,26 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
           subtitle: Text(csController.resCoins[index].symbol),
           leading: Image(image: AssetImage(csController.resCoins[index].icon)),
           onTap: (){
-            //TODO : save this coin into portfolio and close this screen
-            // csController.resCoins[index]
-            //Get.offAllNamed('/');
+            //save this coin into portfolio and close this screen
+            //save coin
+            Coin rCoin = csController.resCoins[index];
+            csController.coinDao.insertSavedCoin(rCoin.transferToMoor());
+            //save portfolio
+            csController.investmentDao.insertSavedInvestment(
+              SavedInvestmentCompanion(
+                coin_sid : m.Value(rCoin.id),
+                holdings : const m.Value(0.0),
+                PnL: const m.Value(0.0),
+                totalCost: const m.Value(0.0),
+                aveNetCost: const m.Value(0.0),
+              )
+            );
+
+            //close screen
+            print(csController.coinDao.streamCoin(1).toString());
+            print(csController.investmentDao.streamInvestment(1).toString());
+
+            Get.offAllNamed('/');
           },
         );
       },

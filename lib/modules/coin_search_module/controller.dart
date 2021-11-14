@@ -1,11 +1,14 @@
 import 'package:coinkoi/data/model/model.dart';
+import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:get/get.dart';
 
 class CoinSearchController extends GetxController{
+
   List<Coin> allCoins = <Coin>[];
   addCoin(Coin coin) => allCoins.add(coin);
 
   List<Coin> resCoins = <Coin>[].obs;
+
   setResCoin(List<Coin> filteredList) {
     resCoins.clear();
     resCoins.addAll(filteredList);
@@ -14,15 +17,8 @@ class CoinSearchController extends GetxController{
     resCoins.clear();
   }
 
-  // RxString query = "".obs;
-  // setQuery(String string){
-  //   query.value= string;
-  //   runFilter(query.value);
-  // }
-  // resetQuery(){
-  //   query.value= '';
-  //   runFilter(query.value);
-  // }
+  var coinDao = AppDatabase().savedCoinDao;
+  var investmentDao = AppDatabase().savedInvestmentDao;
 
   void runFilter(String query) {
     if (query.isEmpty) {
