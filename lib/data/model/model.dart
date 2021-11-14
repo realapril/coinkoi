@@ -59,6 +59,15 @@ class Investment{
   // }
 }
 
+class Portfolio{
+  int id;
+  double earnings;
+  double PnL;
+  List<Investment> investments=[];
+
+  Portfolio({required this.id, required this.earnings, required this.PnL});
+}
+
 
 class Currency{
   int id;
