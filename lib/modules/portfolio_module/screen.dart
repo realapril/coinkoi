@@ -1,3 +1,4 @@
+import 'package:coinkoi/data/model/db_model.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:coinkoi/modules/portfolio_module/controller.dart';
@@ -18,6 +19,7 @@ class _Portfolio extends State<PortfolioScreen> {
   @override
   void initState() {
     super.initState();
+    ;
   }
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class _Portfolio extends State<PortfolioScreen> {
             ),
           ),
           _buildListViewTop(),
-          StreamBuilder<List<SavedInvestmentData>>(
+          StreamBuilder<List<InvestmentWithCoin> >(
             stream: Get.find<DbService>().getStreamInvestments(),
             builder: (context, snapshot) {
               if(snapshot.hasData){
@@ -63,8 +65,8 @@ class _Portfolio extends State<PortfolioScreen> {
                       final item = data[index];
 
                       return ListTile(
-                        title: Text(item.aveNetCost.toString()),
-                        subtitle: Text(item.holdings.toString()),
+                        title: Text(item.investment_.aveNetCost.toString()),
+                        subtitle: Text(item.coin_.symbol.toString()),
                         // tags: item.tags.map((e) => e.name).toList(),
                       );
                     },

@@ -48,7 +48,11 @@ class DbService extends GetxService {
     return db.savedInvestmentDao;
   }
 
-  Stream<List<SavedInvestmentData>> getStreamInvestments(){
+  // Stream<List<SavedInvestmentData>> getStreamInvestments(){
+  //   return db.savedInvestmentDao.streamInvestments();
+  // }
+
+  Stream<List<InvestmentWithCoin>> getStreamInvestments(){ //_MapStream<List<TypedResult>, List<InvestmentWithCoin>>
     return db.savedInvestmentDao.streamInvestments();
   }
 
