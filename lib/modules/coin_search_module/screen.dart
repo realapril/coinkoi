@@ -97,6 +97,7 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
 
   Widget _buildListView(){
     return Obx(()=> ListView.separated(
+      physics: const ClampingScrollPhysics(),
       itemBuilder: (content, index){
         return ListTile(
           title: Text(csController.resCoins[index].name),

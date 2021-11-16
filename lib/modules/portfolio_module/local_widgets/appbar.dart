@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Get.toNamed("/coinSearch");
               },
               child: const Icon(
-                  Icons.add
+                  Icons.add , size: 33.0
               ),
             )
         ),

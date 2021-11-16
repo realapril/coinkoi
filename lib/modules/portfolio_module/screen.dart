@@ -3,6 +3,7 @@ import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:coinkoi/modules/portfolio_module/controller.dart';
 import 'package:coinkoi/modules/portfolio_module/local_widgets/appbar.dart';
+import 'package:coinkoi/modules/portfolio_module/local_widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -61,13 +62,16 @@ class _Portfolio extends State<PortfolioScreen> {
                 final data = snapshot.data!;
 
                 return ListView.separated(
+                    physics: const ClampingScrollPhysics(),
                     itemBuilder: (_, index) {
                       final item = data[index];
 
-                      return ListTile(
-                        title: Text(item.investment_.aveNetCost.toString()),
-                        subtitle: Text(item.coin_.symbol.toString()),
-                        // tags: item.tags.map((e) => e.name).toList(),
+                      return CustomListTile(
+                          icon: item.coin_.icon,
+                          symbol: item.coin_.symbol,
+                          pnl: item.investment_.PnL,
+                          holdings: item.investment_.holdings,
+                          totalCost: item.investment_.totalCost,
                       );
                     },
                     separatorBuilder: (_, index) {
@@ -89,47 +93,24 @@ class _Portfolio extends State<PortfolioScreen> {
 
   Widget _buildListViewTop() {
     return Center(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Container(
-              height: 70,
-              decoration: const BoxDecoration(color: Color(0xFF424242)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(flex: 2, child: Text('Coin', textAlign: TextAlign.center)),
-                  _customVerticalDivider(),
-                  Expanded(flex: 3, child: Text('Profit/Loss', textAlign: TextAlign.center,)),
-                  _customVerticalDivider(),
-                  Expanded(flex: 4, child: Text('Holings', textAlign: TextAlign.center,)),
-                ],
-              ),
-            ),
-          ),
+      child: Container(
+        height: 70,
+        decoration: const BoxDecoration(color: Color(0xFF424242)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(flex: 2, child: Text('Coin', textAlign: TextAlign.center)),
+            _customVerticalDivider(),
+            Expanded(flex: 2, child: Text('Profit/Loss', textAlign: TextAlign.center,)),
+            _customVerticalDivider(),
+            Expanded(flex: 5, child: Text('Holings', textAlign: TextAlign.center,)),
+          ],
         ),
       ),
     );
   }
 
-  // Widget _buildListView(List<SavedInvestment> data) {
-  //   return ListView.separated(
-  //         itemBuilder: (content, index) {
-  //           return ListTile(
-  //             title: Text(pController.investments[index].coin.symbol),
-  //             subtitle: Text(pController.investments[index].PnL.toString() +' %'),
-  //             leading: Image(image: AssetImage(pController.investments[index].coin.icon)), //holdings, netcost
-  //             onTap: () {
-  //               // Get.toNamed("/detailPortfolio", arguments: Coin( id: 1, name: "Bitcoin", symbol: "BTC"));
-  //             },
-  //           );
-  //         },
-  //         itemCount: data.length,
-  //         separatorBuilder: (_, __) => const Divider(),
-  //         shrinkWrap: true,
-  //       );
-  // }
+
 
   Widget _customVerticalDivider(){
     return Container(
