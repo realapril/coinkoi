@@ -44,54 +44,56 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
       appBar: AppBar(
         title: const Text("Search"),
       ),
-      body:SafeArea(
-        child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                decoration: const BoxDecoration(color: Color(0xFF424242)),
-                child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: IconButton(
-                            onPressed: (){
-                              _controller.clear();
-                              csController.runFilter('');
-                            },
-                            icon: const Icon(Icons.close)
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          decoration: const InputDecoration.collapsed(
-                              hintText: 'Name or Symbol',
+      body:SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: const BoxDecoration(color: Color(0xFF424242)),
+                  child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: IconButton(
+                              onPressed: (){
+                                _controller.clear();
+                                csController.runFilter('');
+                              },
+                              icon: const Icon(Icons.close)
                           ),
-                          onChanged: (value) => csController.runFilter(value),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      )
-                    ],
-                  ),
-                )
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              _buildListView(),
-            ],
-          )
-        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: _controller,
+                            decoration: const InputDecoration.collapsed(
+                                hintText: 'Name or Symbol',
+                            ),
+                            onChanged: (value) => csController.runFilter(value),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        )
+                      ],
+                    ),
+                  )
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                _buildListView(),
+              ],
+            )
+          ),
+      ),
     );
   }
 
