@@ -22,72 +22,73 @@ class _Portfolio extends State<PortfolioScreen> {
     super.initState();
     ;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(), //_renderHeaderWidget,
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text('My Portfolio'),
-                    Spacer(),
-                    const Icon(Icons.blur_off_rounded),
-                  ],
-                ),
-                Row(
-                  children: [Text('\$'), Text('111')],
-                ),
-                Row(
-                  children: [
-                    Text('Total Profit/Loss:'),
-                    Spacer(), //flex:2
-                    Text('\$'),
-                    Text('111' + '%'),
-                  ],
-                ),
-              ],
+        child: SingleChildScrollView(
+          child: Column(children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text('My Portfolio'),
+                      Spacer(),
+                      const Icon(Icons.blur_off_rounded),
+                    ],
+                  ),
+                  Row(
+                    children: [Text('\$'), Text('111')],
+                  ),
+                  Row(
+                    children: [
+                      Text('Total Profit/Loss:'),
+                      Spacer(), //flex:2
+                      Text('\$'),
+                      Text('111' + '%'),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          _buildListViewTop(),
-          StreamBuilder<List<InvestmentWithCoin> >(
-            stream: Get.find<DbService>().getStreamInvestments(),
-            builder: (context, snapshot) {
-              if(snapshot.hasData){
-                final data = snapshot.data!;
+            _buildListViewTop(),
+            StreamBuilder<List<InvestmentWithCoin>>(
+                stream: Get.find<DbService>().getStreamInvestments(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data!;
 
-                return ListView.separated(
-                    physics: const ClampingScrollPhysics(),
-                    itemBuilder: (_, index) {
-                      final item = data[index];
+                    return ListView.separated(
+                      physics: const ClampingScrollPhysics(),
+                      itemBuilder: (_, index) {
+                        final item = data[index];
 
-                      return CustomListTile(
+                        return CustomListTile(
                           icon: item.coin_.icon,
                           symbol: item.coin_.symbol,
                           pnl: item.investment_.PnL,
                           holdings: item.investment_.holdings,
                           totalCost: item.investment_.totalCost,
-                      );
-                    },
-                    separatorBuilder: (_, index) {
-                      return Divider();
-                    },
-                    itemCount: data.length,
-                  shrinkWrap: true,
-                );
-
-              }else{
-                return Container();
-              }
-            }
-          )
+                        );
+                      },
+                      separatorBuilder: (_, index) {
+                        return Divider();
+                      },
+                      itemCount: data.length,
+                      shrinkWrap: true,
+                    );
+                  } else {
+                    return Container();
+                  }
+                })
         ]),
-      )),
+        )
+      ),
     );
   }
 
@@ -101,18 +102,26 @@ class _Portfolio extends State<PortfolioScreen> {
           children: [
             Expanded(flex: 2, child: Text('Coin', textAlign: TextAlign.center)),
             _customVerticalDivider(),
-            Expanded(flex: 2, child: Text('Profit/Loss', textAlign: TextAlign.center,)),
+            Expanded(
+                flex: 2,
+                child: Text(
+                  'Profit/Loss',
+                  textAlign: TextAlign.center,
+                )),
             _customVerticalDivider(),
-            Expanded(flex: 5, child: Text('Holings', textAlign: TextAlign.center,)),
+            Expanded(
+                flex: 5,
+                child: Text(
+                  'Holings',
+                  textAlign: TextAlign.center,
+                )),
           ],
         ),
       ),
     );
   }
 
-
-
-  Widget _customVerticalDivider(){
+  Widget _customVerticalDivider() {
     return Container(
       width: 1,
       height: double.maxFinite,
