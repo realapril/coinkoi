@@ -29,8 +29,10 @@ class CoinSearchController extends GetxController{
         final nameLower = coin.name.toLowerCase();
         final symbolLower = coin.symbol.toLowerCase();
         final searchLower = query.toLowerCase();
-        return nameLower.contains(searchLower) ||
-            symbolLower.contains(searchLower);
+        // return nameLower.contains(searchLower) ||
+        //     symbolLower.contains(searchLower);
+        return nameLower.startsWith(searchLower) ||
+            symbolLower.startsWith(searchLower);
       }).toList();
       setResCoin(search);
     }
