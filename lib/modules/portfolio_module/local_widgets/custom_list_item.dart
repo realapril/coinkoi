@@ -9,6 +9,7 @@ class CustomListTile extends StatelessWidget {
     required this.pnl,
     required this.holdings,
     required this.totalCost,
+    required this.currency
   });
 
   final String icon;
@@ -16,6 +17,7 @@ class CustomListTile extends StatelessWidget {
   final double pnl;
   final double holdings;
   final double totalCost;
+  final String currency;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class CustomListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
 
-                  Text("\$ "+ totalCost.toString(), textAlign: TextAlign.right ), //TODO make currency changeable
+                  Text(currency +" "+ totalCost.toString(), textAlign: TextAlign.right ), //TODO make currency changeable
                   Text(holdings.toString() + " " + symbol, textAlign: TextAlign.right)
                 ],
               ),

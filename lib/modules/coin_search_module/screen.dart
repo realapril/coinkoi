@@ -109,22 +109,11 @@ class _CoinSearchScreen extends State<CoinSearchScreen> {
             //save this coin into portfolio and close this screen
             //save coin
             Coin rCoin = csController.resCoins[index];
-            csController.coinDao.insertSavedCoin(rCoin.transferToMoor());
+            csController.saveCoin(rCoin);
             //save portfolio
-            csController.investmentDao.insertSavedInvestment(
-              SavedInvestmentCompanion(
-                coin_sid : m.Value(rCoin.id),
-                holdings : const m.Value(0.0),
-                PnL: const m.Value(0.0),
-                totalCost: const m.Value(0.0),
-                aveNetCost: const m.Value(0.0),
-              )
-            );
+            csController.saveNewPortfolio(rCoin);
 
             //close screen
-            print(csController.coinDao.streamCoin(1).toString());
-            print(csController.investmentDao.streamInvestment(1).toString());
-
             Get.offAllNamed('/');
           },
         );

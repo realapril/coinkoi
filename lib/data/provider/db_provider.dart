@@ -8,10 +8,10 @@ import 'package:path_provider/path_provider.dart';
 
 part 'db_provider.g.dart';
 
-LazyDatabase openConnection() {
+LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
+    final file = File(p.join(dbFolder.path, 'db3.sqlite'));
     return VmDatabase(file);
   });
 }
@@ -19,20 +19,20 @@ LazyDatabase openConnection() {
 @UseMoor(tables: [SavedInvestment, SavedCoin], daos: [SavedInvestmentDao, SavedCoinDao])
 class AppDatabase extends _$AppDatabase {
   // AppDatabase(QueryExecutor e) : super(e);
-  AppDatabase() : super(openConnection());
+  AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 1;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    // onUpgrade: (migrator, from, to) async {
-    //   if (from == 1) {
-    //     // migrator.deleteTable(todos.tableName);
-    //   }
-    // },
-    beforeOpen: (details) async {
-      await customStatement('PRAGMA foreign_keys = ON');
-    },
+      onCreate: (m) async {
+        await m.createAll(); // create all tables
+      },
+      onUpgrade: (migrator, from, to) async {
+      },
+      beforeOpen: (details) async {
+        await customStatement('PRAGMA foreign_keys = ON');
+      },
   );
 }

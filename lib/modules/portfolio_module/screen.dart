@@ -57,7 +57,7 @@ class _Portfolio extends State<PortfolioScreen> {
               ),
             ),
             _buildListViewTop(),
-            StreamBuilder<List<InvestmentWithCoin>>(
+            StreamBuilder<List<SavedInvestmentData>>(
                 stream: Get.find<DbService>().getStreamInvestments(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -69,11 +69,12 @@ class _Portfolio extends State<PortfolioScreen> {
                         final item = data[index];
 
                         return CustomListTile(
-                          icon: item.coin_.icon,
-                          symbol: item.coin_.symbol,
-                          pnl: item.investment_.PnL,
-                          holdings: item.investment_.holdings,
-                          totalCost: item.investment_.totalCost,
+                          icon: item.coin_icon,
+                          symbol: item.coin_symbol,
+                          pnl: item.PnL,
+                          holdings: item.holdings,
+                          totalCost: item.totalCost,
+                          currency: item.currency,
                         );
                       },
                       separatorBuilder: (_, index) {
@@ -82,7 +83,10 @@ class _Portfolio extends State<PortfolioScreen> {
                       itemCount: data.length,
                       shrinkWrap: true,
                     );
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text(snapshot.error.toString()));
                   } else {
+                    print('else');
                     return Container();
                   }
                 })

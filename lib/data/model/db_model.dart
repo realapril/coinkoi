@@ -29,8 +29,11 @@ class SavedCoin extends Table {
 class SavedInvestment extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  IntColumn get coin_sid =>
-      integer().customConstraint('REFERENCES savedcoin(id)')();
+  IntColumn get coin_sid => integer()();
+
+  TextColumn get coin_symbol => text()();
+
+  TextColumn get coin_icon => text()();
 
   RealColumn get holdings => real()();
 
@@ -40,44 +43,26 @@ class SavedInvestment extends Table {
 
   RealColumn get aveNetCost => real()();
 
+  TextColumn get currency => text()();
+
+  TextColumn get transactions => text()();
+
+  DateTimeColumn get updatedAt=> dateTime().withDefault(Constant(DateTime.now()))();
+
+
   @override
   Set<Column> get primayKey => {id};
 }
 
-class InvestmentWithCoin {
-  InvestmentWithCoin(this.investment_, this.coin_);
-
-  final SavedInvestmentData investment_;
-  final SavedCoinData coin_;
-
-  // InvestmentWithCoin(@required this.investment, @required this.coin);
-
-}
 
 enum TransactionType { TYPE_BUY, TYPE_SELL, TYPE_IN, TYPE_OUT }
 
 
-@UseDao(tables: [SavedInvestment, SavedCoin])
+@UseDao(tables: [SavedInvestment])
 class SavedInvestmentDao extends DatabaseAccessor<AppDatabase> with _$SavedInvestmentDaoMixin {
   SavedInvestmentDao(AppDatabase db) : super(db);
 
-  Stream<List<InvestmentWithCoin>> streamInvestments() =>
-      select(savedInvestment)
-          // ..orderby()
-          .join(
-            [
-              leftOuterJoin(
-                  savedCoin, savedCoin.id.equalsExp(savedInvestment.coin_sid)),
-            ],
-          )
-          .watch()
-          .map((rows) =>
-            rows.map((row) => (
-              InvestmentWithCoin(
-                row.readTable(savedInvestment),
-                row.readTable(savedCoin),
-              )
-            )).toList());
+  Stream<List<SavedInvestmentData>> streamInvestments() => select(savedInvestment).watch();
 
   Stream<SavedInvestmentData> streamInvestment(int id) =>
       (select(savedInvestment)..where((tbl) => tbl.id.equals(id)))
@@ -88,8 +73,7 @@ class SavedInvestmentDao extends DatabaseAccessor<AppDatabase> with _$SavedInves
 }
 
 @UseDao(tables: [SavedCoin])
-class SavedCoinDao extends DatabaseAccessor<AppDatabase>
-    with _$SavedCoinDaoMixin {
+class SavedCoinDao extends DatabaseAccessor<AppDatabase> with _$SavedCoinDaoMixin {
   SavedCoinDao(AppDatabase db) : super(db);
 
   Stream<List<SavedCoinData>> streamCoins() => select(savedCoin).watch();
@@ -98,5 +82,15 @@ class SavedCoinDao extends DatabaseAccessor<AppDatabase>
       (select(savedCoin)..where((tbl) => tbl.id.equals(id))).watchSingle();
 
   Future insertSavedCoin(SavedCoinCompanion data) =>
-      into(savedCoin).insert(data);
+      into(savedCoin).insert(data).catchError((e) {
+        print('Got error: $e'); // Finally, callback fires.
+      });
 }
+
+// @UseDao(tables: [Test])
+// class TestDao extends DatabaseAccessor<AppDatabase> with _$TestDaoMixin {
+//   TestDao(AppDatabase db) : super(db);
+//
+//   Future insertSavedCoin(TestCompanion data) =>
+//       into(test).insert(data);
+// }

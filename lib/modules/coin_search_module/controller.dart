@@ -2,6 +2,7 @@ import 'package:coinkoi/data/model/model.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:get/get.dart';
+import 'package:moor/moor.dart' as m;
 
 class CoinSearchController extends GetxController{
 
@@ -21,6 +22,7 @@ class CoinSearchController extends GetxController{
   var coinDao = Get.find<DbService>().db.savedCoinDao;
   var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
 
+
   void runFilter(String query) {
     if (query.isEmpty) {
       clearResCoin();
@@ -31,11 +33,31 @@ class CoinSearchController extends GetxController{
         final searchLower = query.toLowerCase();
         // return nameLower.contains(searchLower) ||
         //     symbolLower.contains(searchLower);
-        return nameLower.startsWith(searchLower) ||
-            symbolLower.startsWith(searchLower);
+        return symbolLower.startsWith(searchLower)||
+            nameLower.startsWith(searchLower);
       }).toList();
       setResCoin(search);
     }
+  }
+
+  void saveCoin(Coin coin){
+    coinDao.insertSavedCoin(coin.transferToMoor());
+  }
+
+  void saveNewPortfolio(Coin coin){
+    investmentDao.insertSavedInvestment(
+        SavedInvestmentCompanion(
+          coin_sid : m.Value(coin.id),
+          coin_symbol : m.Value(coin.symbol),
+          coin_icon : m.Value(coin.icon),
+          holdings : const m.Value(0.0),
+          PnL: const m.Value(0.0),
+          totalCost: const m.Value(0.0),
+          aveNetCost: const m.Value(0.0),
+          currency: const m.Value("\$"),
+          transactions : const m.Value(""),
+        )
+    );
   }
 
 }
