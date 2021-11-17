@@ -31,49 +31,67 @@ class CustomListTile extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: GestureDetector(
-        onTap: ()=> Get.toNamed("/detailPortfolio", arguments: {"id": id}),
-        onLongPress: (){
-          final act = customCupertino(pController, context);
-          showCupertinoModalPopup(
-              context: context,
-              builder: (BuildContext context) => act);
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          buildInvestmentUI(pController, context),
+          buildTransactionUI(),
+        ],
+      ),
+    );
+  }
+
+
+  Widget buildInvestmentUI(PortfolioController pController, BuildContext context){
+    return Expanded(flex: 7,
+        child: GestureDetector(
+          onTap: ()=> Get.toNamed("/detailPortfolio", arguments: {"id": id}),
+          onLongPress: (){
+            final act = customCupertino(pController, context);
+            showCupertinoModalPopup(
+                context: context,
+                builder: (BuildContext context) => act);
           },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(flex: 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(image: AssetImage(icon)),
-                  Text(symbol, textAlign: TextAlign.center)
-                ],
-              ),
-            ),
-            Expanded(flex: 2,
-                child: Text( pnl.toString() +"%  ", textAlign: TextAlign.right ,
-                    style: TextStyle(
-                    color: pnl < 0 ? Colors.red : Colors.green ),
-            )),
-            Expanded(flex: 3,
+          child: Row(
+            children: <Widget>[
+              Expanded(flex: 2,
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image(image: AssetImage(icon)),
+                    Text(symbol, textAlign: TextAlign.center)
+                  ],
+                ),
+              ),
+              Expanded(flex: 2,
+                  child: Text( pnl.toString() +"%  ", textAlign: TextAlign.right ,
+                    style: TextStyle(
+                        color: pnl < 0 ? Colors.red : Colors.green ),
+                  )),
+              Expanded(flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
 
                     Text(currency +" "+ totalCost.toString(), textAlign: TextAlign.right ), //TODO make currency changeable
                     Text(holdings.toString() + " " + symbol, textAlign: TextAlign.right)
                   ],
                 ),
-            ),
-            const Expanded(flex: 2,
-              child: Center(
-                child: Icon(
-                    Icons.add , size: 28.0
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
+        )
+    );
+  }
+  
+  Widget buildTransactionUI(){
+    return Expanded(flex: 2,
+      child: GestureDetector(
+        onTap: ()=> Get.toNamed("/editTransaction", arguments: {"id": id}),
+        child: const Center(
+          child: Icon(
+              Icons.add , size: 28.0
+          ),
         ),
       ),
     );
@@ -87,6 +105,7 @@ class CustomListTile extends StatelessWidget {
             onPressed: () {
               pController.deleteCoin(id);
               pController.deletePortfolio(portfolioId);
+              Navigator.pop(context);
             },
           )
         ],
@@ -97,4 +116,7 @@ class CustomListTile extends StatelessWidget {
           },
         ));
   }
+
 }
+
+
