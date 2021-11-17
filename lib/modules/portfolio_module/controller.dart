@@ -9,6 +9,13 @@ class PortfolioController extends GetxController{
 
   // List<Investment> investments = <Investment>[].obs;
 
+  var coinDao = Get.find<DbService>().db.savedCoinDao;
+  var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
 
-
+  void deleteCoin(int coinId){
+    coinDao.deleteCoin(coinId);
+  }
+  void deletePortfolio(int portfolioId){
+    investmentDao.deleteInvestment(portfolioId);
+  }
 }

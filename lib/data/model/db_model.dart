@@ -70,6 +70,9 @@ class SavedInvestmentDao extends DatabaseAccessor<AppDatabase> with _$SavedInves
 
   Future insertSavedInvestment(SavedInvestmentCompanion data) =>
       into(savedInvestment).insert(data);
+
+  Future deleteInvestment(int id) =>
+      (delete(savedInvestment)..where((tbl) => tbl.id.equals(id))).go();
 }
 
 @UseDao(tables: [SavedCoin])
@@ -85,6 +88,9 @@ class SavedCoinDao extends DatabaseAccessor<AppDatabase> with _$SavedCoinDaoMixi
       into(savedCoin).insert(data).catchError((e) {
         print('Got error: $e'); // Finally, callback fires.
       });
+
+  Future deleteCoin(int id) =>
+      (delete(savedCoin)..where((tbl) => tbl.id.equals(id))).go();
 }
 
 // @UseDao(tables: [Test])
