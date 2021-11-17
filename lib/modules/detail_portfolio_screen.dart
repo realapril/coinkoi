@@ -20,8 +20,8 @@ class DetailPortfolioScreen extends StatelessWidget {
                   Get.toNamed('/editTransaction');
                 }
             ),
-            // Text("${Get.arguments['symbol']}")
-            Text((Get.arguments as Coin).name)
+            Text("${Get.arguments['id'].toString()}")
+            // Text((Get.arguments as Coin).name)
           ],
         )
       )

@@ -1,4 +1,3 @@
-import 'package:coinkoi/data/model/db_model.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:coinkoi/modules/portfolio_module/controller.dart';
@@ -25,6 +24,8 @@ class _Portfolio extends State<PortfolioScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(), //_renderHeaderWidget,
@@ -69,6 +70,8 @@ class _Portfolio extends State<PortfolioScreen> {
                         final item = data[index];
 
                         return CustomListTile(
+                          id: item.coin_sid,
+                          portfolioId: item.id,
                           icon: item.coin_icon,
                           symbol: item.coin_symbol,
                           pnl: item.PnL,
