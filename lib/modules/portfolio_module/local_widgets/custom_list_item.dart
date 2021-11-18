@@ -45,7 +45,7 @@ class CustomListTile extends StatelessWidget {
   Widget buildInvestmentUI(PortfolioController pController, BuildContext context){
     return Expanded(flex: 7,
         child: GestureDetector(
-          onTap: ()=> Get.toNamed("/detailPortfolio", arguments: {"id": id}),
+          onTap: ()=> Get.toNamed("/detailPortfolio", arguments: [{"investmentId": portfolioId}, {"coinId": id}]),
           onLongPress: (){
             final act = customCupertino(pController, context);
             showCupertinoModalPopup(

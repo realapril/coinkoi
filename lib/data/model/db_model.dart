@@ -68,6 +68,10 @@ class SavedInvestmentDao extends DatabaseAccessor<AppDatabase> with _$SavedInves
       (select(savedInvestment)..where((tbl) => tbl.id.equals(id)))
           .watchSingle();
 
+  Future<List<SavedInvestmentData>> getInvestment(int id) =>
+      (select(savedInvestment)..where((tbl) => tbl.id.equals(id))).get();
+
+
   Future insertSavedInvestment(SavedInvestmentCompanion data) =>
       into(savedInvestment).insert(data);
 
@@ -81,8 +85,8 @@ class SavedCoinDao extends DatabaseAccessor<AppDatabase> with _$SavedCoinDaoMixi
 
   Stream<List<SavedCoinData>> streamCoins() => select(savedCoin).watch();
 
-  Stream<SavedCoinData> streamCoin(int id) =>
-      (select(savedCoin)..where((tbl) => tbl.id.equals(id))).watchSingle();
+  Future<List<SavedCoinData>> getCoin(int id) =>
+      (select(savedCoin)..where((tbl) => tbl.id.equals(id))).get();
 
   Future insertSavedCoin(SavedCoinCompanion data) =>
       into(savedCoin).insert(data).catchError((e) {
