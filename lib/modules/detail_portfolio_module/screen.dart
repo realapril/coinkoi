@@ -28,24 +28,46 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // if(dpController.investmentInfo.isNotEmpty){
+    //   return _bulidSuccessScreen();
+    // }else{
+    //   return _buildFailureScreen();
+    // }
     return Scaffold(
-        appBar: DetailPortfolioAppBar(),
-        body: Center(
+        body: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RaisedButton(
-                    onPressed: (){
-                      Get.toNamed('/editTransaction');
-                    }
-                ),
-                Text("${Get.arguments[0]['investmentId'].toString()}"),
-                Obx(()=> Text(dpController.investmentInfo.isNotEmpty? dpController.investmentInfo[0].currency : "nothing yet")),
+                Obx(()=> DetailPortfolioAppBar(isDataLoaded() ? getInvestment().coin_icon :"" , isDataLoaded() ? getInvestment().coin_symbol :"", context)),
+                // Text("${Get.arguments[0]['investmentId'].toString()}"),
+                Obx(()=> Text( isDataLoaded() ? getInvestment().currency :"")),
 
                 // Text((Get.arguments as Coin).name)
               ],
             )
         )
-    );
+    );;
   }
+
+  // Widget _bulidSuccessScreen(){
+  //
+  // }
+
+  bool isDataLoaded(){
+    return dpController.investmentInfo.isNotEmpty;
+  }
+
+  SavedInvestmentData getInvestment(){
+    return dpController.investmentInfo[0];
+  }
+
+
+  // Widget _buildFailureScreen(){
+  //   return const Scaffold(
+  //       body:  Text('Wait a second..')
+  //
+  //   );
+  // }
 }
+
+// Get.toNamed('/editTransaction');

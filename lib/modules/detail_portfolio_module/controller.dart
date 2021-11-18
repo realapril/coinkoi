@@ -11,6 +11,8 @@ class DetailPortfolioController extends GetxController{
   final investmentInfo = <SavedInvestmentData>[].obs;
   final transactionList = <SavedTransactionData>[].obs;
 
+  // Rxn<SavedInvestmentData> investmentD = Rxn<SavedInvestmentData>();
+
   void getPortfolio(int portfolioId) async {
     investmentInfo.value = await investmentDao.getInvestment(portfolioId);
   }
@@ -18,7 +20,6 @@ class DetailPortfolioController extends GetxController{
   void getTransaction(int transactionId) async {
     transactionList.value = await transactionDao.getTransaction(transactionId);
   }
-
 
   // var coinDao = Get.find<DbService>().db.savedCoinDao;
   // final coinList = <SavedCoinData>[].obs;
