@@ -40,7 +40,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
                     }
                 ),
                 Text("${Get.arguments[0]['investmentId'].toString()}"),
-                Obx(()=> Text(dpController.transactionList.isNotEmpty? dpController.transactionList[0].currency : "nothing yet")),
+                Obx(()=> Text(dpController.investmentInfo.isNotEmpty? dpController.investmentInfo[0].currency : "nothing yet")),
 
                 // Text((Get.arguments as Coin).name)
               ],

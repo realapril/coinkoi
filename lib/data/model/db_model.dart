@@ -54,6 +54,29 @@ class SavedInvestment extends Table {
   Set<Column> get primayKey => {id};
 }
 
+class SavedTransaction extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  IntColumn get investment_sid => integer()();
+
+  TextColumn get type => text()();
+
+  RealColumn get ppc => real()(); //price per coin
+
+  RealColumn get quantity => real()();
+
+  RealColumn get fee => real()();
+
+  RealColumn get cost => real()();
+
+  TextColumn get note => text()();
+
+  DateTimeColumn get updatedAt=> dateTime().withDefault(Constant(DateTime.now()))();
+
+  @override
+  Set<Column> get primayKey => {id};
+}
+
 
 enum TransactionType { TYPE_BUY, TYPE_SELL, TYPE_IN, TYPE_OUT }
 
@@ -95,6 +118,24 @@ class SavedCoinDao extends DatabaseAccessor<AppDatabase> with _$SavedCoinDaoMixi
 
   Future deleteCoin(int id) =>
       (delete(savedCoin)..where((tbl) => tbl.id.equals(id))).go();
+}
+
+@UseDao(tables: [SavedTransaction])
+class SavedTransactionDao extends DatabaseAccessor<AppDatabase> with _$SavedTransactionDaoMixin {
+  SavedTransactionDao(AppDatabase db) : super(db);
+
+  Stream<List<SavedTransactionData>> streamTransactions() => select(savedTransaction).watch();
+
+  Future<List<SavedTransactionData>> getTransaction(int id) =>
+      (select(savedTransaction)..where((tbl) => tbl.id.equals(id))).get();
+
+  Future insertTransaction(SavedTransactionCompanion data) =>
+      into(savedTransaction).insert(data).catchError((e) {
+        print('Got error: $e'); // Finally, callback fires.
+      });
+
+  Future deleteTransaction(int id) =>
+      (delete(savedTransaction)..where((tbl) => tbl.id.equals(id))).go();
 }
 
 // @UseDao(tables: [Test])

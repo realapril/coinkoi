@@ -16,7 +16,7 @@ LazyDatabase _openConnection() {
   });
 }
 
-@UseMoor(tables: [SavedInvestment, SavedCoin], daos: [SavedInvestmentDao, SavedCoinDao])
+@UseMoor(tables: [SavedInvestment, SavedCoin, SavedTransaction], daos: [SavedInvestmentDao, SavedCoinDao, SavedTransactionDao])
 class AppDatabase extends _$AppDatabase {
   // AppDatabase(QueryExecutor e) : super(e);
   AppDatabase() : super(_openConnection());

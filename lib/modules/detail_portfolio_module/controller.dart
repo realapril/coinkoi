@@ -4,19 +4,25 @@ import 'package:get/get.dart';
 
 
 class DetailPortfolioController extends GetxController{
-  var coinDao = Get.find<DbService>().db.savedCoinDao;
   var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
+  var transactionDao = Get.find<DbService>().db.savedTransactionDao;
 
 
-  final transactionList = <SavedInvestmentData>[].obs;
-  final coinList = [].obs;
-
-
-  void getCoin(int coinId) async {
-    coinList.add(await coinDao.getCoin(coinId));
-  }
+  final investmentInfo = <SavedInvestmentData>[].obs;
+  final transactionList = <SavedTransactionData>[].obs;
 
   void getPortfolio(int portfolioId) async {
-    transactionList.value = await investmentDao.getInvestment(portfolioId);
+    investmentInfo.value = await investmentDao.getInvestment(portfolioId);
   }
+
+  void getTransaction(int transactionId) async {
+    transactionList.value = await transactionDao.getTransaction(transactionId);
+  }
+
+
+  // var coinDao = Get.find<DbService>().db.savedCoinDao;
+  // final coinList = <SavedCoinData>[].obs;
+  // void getCoin(int coinId) async {
+  //   coinList.value = await coinDao.getCoin(coinId);
+  // }
 }
