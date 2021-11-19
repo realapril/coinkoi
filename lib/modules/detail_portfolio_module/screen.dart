@@ -3,6 +3,7 @@ import 'package:coinkoi/core/theme/color_theme.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/controller.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/appbar.dart';
+import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/bottom_sheet.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,42 +35,43 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Obx(() => DetailPortfolioAppBar(
-                  isDataLoaded() ? getInvestment().coin_icon : "",
-                  isDataLoaded() ? getInvestment().coin_symbol : "",
-                  context)),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 1, child: _buildHoldings()),
-                    Expanded(flex: 1, child: _buildAveNetCost()),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
-                child: Row(
-                  children: [
-                    Expanded(flex: 1, child: _buildTotalCost()),
-                    Expanded(flex: 1, child: _buildPnL()),
-                  ],
-                ),
-              ),
-              _buildTransaction(),
-            ],
-          )),
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+                child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() => DetailPortfolioAppBar(
+                      isDataLoaded() ? getInvestment().coin_icon : "",
+                      isDataLoaded() ? getInvestment().coin_symbol : "",
+                      context)),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+                    child: Row(
+                      children: [
+                        Expanded(flex: 1, child: _buildHoldings()),
+                        Expanded(flex: 1, child: _buildAveNetCost()),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(flex: 1, child: _buildTotalCost()),
+                        Expanded(flex: 1, child: _buildPnL()),
+                      ],
+                    ),
+                  ),
+                  _buildTransaction(),
+              ],
+            )),
+          ),
+          _buildBottomButton(),
+          ],
         ),
-        _buildBottomButton(),
-      ],
-    ));
+    );
   }
 
   Widget _buildBottomButton() {
@@ -210,6 +212,18 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
         Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 20.0 ),
             child: Text("Transaction History", style: TxtStyle.body1)
+        ),
+        ElevatedButton(
+          child: Text(
+            'open',
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            Get.bottomSheet(
+              customBottom()
+            );
+
+          },
         ),
         StreamBuilder<List<SavedTransactionData>>(
             stream: Get.find<DbService>().getStreamTransactions(),
