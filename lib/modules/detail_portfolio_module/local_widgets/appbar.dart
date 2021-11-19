@@ -11,7 +11,7 @@ Widget DetailPortfolioAppBar(String coinIcon, String coinSymbol, BuildContext co
 
 
   return Container(
-    decoration: new BoxDecoration(
+    decoration: BoxDecoration(
       color: Colors.grey[700],
     ),
     height: height+60,
@@ -22,12 +22,12 @@ Widget DetailPortfolioAppBar(String coinIcon, String coinSymbol, BuildContext co
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(width: 15,),
+            const SizedBox(width: 15,),
             _backButton(),
-            SizedBox(width: 15,),
-            coinIcon.isNotEmpty? Image(image: AssetImage(coinIcon)): SizedBox(),
-            SizedBox(width: 15,),
-            Text(coinSymbol , style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            const SizedBox(width: 15,),
+            coinIcon.isNotEmpty? Image(image: AssetImage(coinIcon)): const SizedBox(),
+            const SizedBox(width: 15,),
+            Text(coinSymbol , style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 
             ],
           ),
