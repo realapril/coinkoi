@@ -24,6 +24,7 @@ class TxtStyle{
 
   static TextStyle body3 = const TextStyle(
     fontSize: 14,
+    color: Colors.white
   );
 
   static TextStyle title5 = const TextStyle(
@@ -32,7 +33,11 @@ class TxtStyle{
 
   static TextStyle button = const TextStyle(
     fontSize: 18,
+    color: Colors.white
   );
 
-
+  static TextStyle appBar = const TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 20
+  );
 }

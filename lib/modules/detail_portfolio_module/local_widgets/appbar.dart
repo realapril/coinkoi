@@ -1,3 +1,4 @@
+import 'package:coinkoi/core/style/txt_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ Widget DetailPortfolioAppBar(String coinIcon, String coinSymbol, BuildContext co
             const SizedBox(width: 15,),
             coinIcon.isNotEmpty? Image(image: AssetImage(coinIcon)): const SizedBox(),
             const SizedBox(width: 15,),
-            Text(coinSymbol , style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            Text(coinSymbol , style: TxtStyle.appBar),
 
             ],
           ),
