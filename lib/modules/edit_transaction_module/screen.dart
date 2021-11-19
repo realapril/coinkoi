@@ -19,8 +19,9 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    Get.arguments[0]['invId'];
-    Get.arguments[1]['function'];
+    Get.arguments[0]['function'];
+    Get.arguments[1]['invId'];
+    Get.arguments[2]['symbol'];
 
     _tabController = TabController(length: 3, vsync: this);
   }
@@ -30,7 +31,7 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('${Get.arguments[1]['function']} Transaction'),
+        title: Text('${Get.arguments[0]['function']} Transaction'),
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: koiColor,

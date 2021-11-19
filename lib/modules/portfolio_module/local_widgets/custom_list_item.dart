@@ -88,8 +88,9 @@ class CustomListTile extends StatelessWidget {
     return Expanded(flex: 2,
       child: GestureDetector(
         onTap: ()=> Get.toNamed("/editTransaction", arguments: [
-          {"invId": investmentId},
           {"function": "Add"},
+          {"invId": investmentId},
+          {"symbol": symbol }
         ]),
         child: const Center(
           child: Icon(

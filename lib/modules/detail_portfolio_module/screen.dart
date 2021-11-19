@@ -85,8 +85,9 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
                   primary: koiColor, textStyle: TxtStyle.button),
               onPressed: () {
                 Get.toNamed('/editTransaction', arguments: [
-                  {"invId": Get.arguments[0]['investmentId']},
                   {"function": "Add"},
+                  {"invId": Get.arguments[0]['investmentId']},
+                  {"symbol": getInvestment().coin_symbol },
                 ]);
               },
               child: Text(
