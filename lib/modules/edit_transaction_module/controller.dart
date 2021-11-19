@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 
 
 class EditTransactionController extends GetxController{
-  var coinDao = AppDatabase().savedCoinDao;
-  var investmentDao = AppDatabase().savedInvestmentDao;
+  // var coinDao = AppDatabase().savedCoinDao;
+  // var investmentDao = AppDatabase().savedInvestmentDao;
 
   // List<Investment> investments = <Investment>[].obs;
   //
