@@ -22,6 +22,10 @@ class TxtStyle{
       color: Colors.grey,
   );
 
+  static TextStyle body3 = const TextStyle(
+    fontSize: 14,
+  );
+
   static TextStyle title5 = const TextStyle(
     fontSize: 24,
   );

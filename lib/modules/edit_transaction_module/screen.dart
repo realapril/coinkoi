@@ -1,4 +1,5 @@
 import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/modules/edit_transaction_module/sub_screens.dart';
 import 'package:coinkoi/modules/portfolio_module/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,8 +26,6 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -47,30 +46,12 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
       body: TabBarView(
         controller: _tabController,
         children: [
-            Text('1'),
-          Text('2'),
-          Text('3'),
-
+          SubScreens().buyAndSellView(0),
+          SubScreens().buyAndSellView(1),
+          SubScreens().transferView(),
         ],
       )
     );
   }
 
-
-  Widget _v() {
-    return SafeArea(
-        child: SingleChildScrollView(
-          child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-
-                ],
-              ),
-            ),
-          ]),
-        )
-    );
-  }
 }
