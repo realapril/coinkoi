@@ -15,7 +15,7 @@ class PortfolioController extends GetxController{
   void deleteCoin(int coinId){
     coinDao.deleteCoin(coinId);
   }
-  void deletePortfolio(int portfolioId){
+  void deleteInvestment(int portfolioId){
     investmentDao.deleteInvestment(portfolioId);
   }
 }

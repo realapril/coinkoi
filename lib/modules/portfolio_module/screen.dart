@@ -71,7 +71,7 @@ class _Portfolio extends State<PortfolioScreen> {
 
                         return CustomListTile(
                           id: item.coin_sid,
-                          portfolioId: item.id,
+                          investmentId: item.id,
                           icon: item.coin_icon,
                           symbol: item.coin_symbol,
                           pnl: item.PnL,

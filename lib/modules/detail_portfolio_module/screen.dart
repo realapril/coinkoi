@@ -86,7 +86,6 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
               onPressed: () {
                 Get.toNamed('/editTransaction', arguments: [
                   {"invId": Get.arguments[0]['investmentId']},
-                  {"from": "detail"},
                   {"function": "Add"},
                 ]);
               },

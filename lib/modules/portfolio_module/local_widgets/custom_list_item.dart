@@ -7,7 +7,7 @@ import '../controller.dart';
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
     required this.id,
-    required this.portfolioId,
+    required this.investmentId,
     required this.icon,
     required this.symbol,
     required this.pnl,
@@ -17,7 +17,7 @@ class CustomListTile extends StatelessWidget {
   });
 
   final int id;
-  final int portfolioId;
+  final int investmentId;
   final String icon;
   final String symbol;
   final double pnl;
@@ -45,7 +45,7 @@ class CustomListTile extends StatelessWidget {
   Widget buildInvestmentUI(PortfolioController pController, BuildContext context){
     return Expanded(flex: 7,
         child: GestureDetector(
-          onTap: ()=> Get.toNamed("/detailPortfolio", arguments: [{"investmentId": portfolioId}, {"coinId": id}]),
+          onTap: ()=> Get.toNamed("/detailPortfolio", arguments: [{"investmentId": investmentId}, {"coinId": id}]),
           onLongPress: (){
             final act = customCupertino(pController, context);
             showCupertinoModalPopup(
@@ -87,7 +87,10 @@ class CustomListTile extends StatelessWidget {
   Widget buildTransactionUI(){
     return Expanded(flex: 2,
       child: GestureDetector(
-        onTap: ()=> Get.toNamed("/editTransaction", arguments: {"id": id}),
+        onTap: ()=> Get.toNamed("/editTransaction", arguments: [
+          {"invId": investmentId},
+          {"function": "Add"},
+        ]),
         child: const Center(
           child: Icon(
               Icons.add , size: 28.0
@@ -104,7 +107,7 @@ class CustomListTile extends StatelessWidget {
             child: Text('Remove from portfolio'),
             onPressed: () {
               pController.deleteCoin(id);
-              pController.deletePortfolio(portfolioId);
+              pController.deleteInvestment(investmentId);
               Navigator.pop(context);
             },
           )
