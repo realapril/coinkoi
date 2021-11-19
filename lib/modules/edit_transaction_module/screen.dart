@@ -1,8 +1,9 @@
 import 'package:coinkoi/core/theme/color_theme.dart';
 import 'package:coinkoi/modules/edit_transaction_module/sub_screens.dart';
-import 'package:coinkoi/modules/portfolio_module/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'controller.dart';
 
 class EditTransactionScreen extends StatefulWidget {
   const EditTransactionScreen({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class EditTransactionScreen extends StatefulWidget {
 }
 
 class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerProviderStateMixin{
-  final PortfolioController pController = Get.put(PortfolioController());
+  final EditTransactionController eController = Get.put(EditTransactionController());
   late TabController _tabController;
 
   @override
@@ -46,9 +47,9 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
       body: TabBarView(
         controller: _tabController,
         children: [
-          SubScreens().buyAndSellView(0),
-          SubScreens().buyAndSellView(1),
-          SubScreens().transferView(),
+          SubScreens().skeletonView(0, eController),
+          SubScreens().skeletonView(1, eController),
+          SubScreens().skeletonView(2, eController),
         ],
       )
     );
