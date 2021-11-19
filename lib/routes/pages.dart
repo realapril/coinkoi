@@ -2,7 +2,7 @@ import 'package:coinkoi/modules/btm_navigation.dart';
 import 'package:coinkoi/modules/calculator_screen.dart';
 import 'package:coinkoi/modules/coin_search_module/screen.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/screen.dart';
-import 'package:coinkoi/modules/edit_transaction_screen.dart';
+import 'package:coinkoi/modules/edit_transaction_module/screen.dart';
 import 'package:coinkoi/modules/more_screen.dart';
 import 'package:coinkoi/modules/portfolio_module/screen.dart';
 import 'package:coinkoi/modules/init_setting_screen.dart';
