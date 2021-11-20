@@ -23,12 +23,14 @@ class SubScreens {
     final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
     eController0.currentDateStr.value = eController0.setCurrentDate();
     eController0.type = 'buy';
+    eController0.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey0 = GlobalKey<FormState>();
 
 
     final EditTransactionController eController1 = Get.put(EditTransactionController(), tag: "sell");
     eController1.currentDateStr.value = eController1.setCurrentDate();
     eController1.type = 'sell';
+    eController1.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
 
 
@@ -86,7 +88,21 @@ class SubScreens {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
+                     SnackBar(
+                       content: Container(
+                         // color: Colors.white,
+                         decoration: BoxDecoration(color: Colors.grey[700], borderRadius: BorderRadius.circular(10)),
+                         margin: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+                         child:
+                           Padding(
+                             padding: const EdgeInsets.all(18.0),
+                             child: Text('Successfully saved', style: TxtStyle.button,),
+                           ),
+                       ),
+                       // behavior: SnackBarBehavior.floating,
+                       // content: Text('Successfully saved'),
+                       backgroundColor: Colors.transparent,
+                    ),
                   );
                   eController.validateAndSave(_formKey);
                   Get.back();

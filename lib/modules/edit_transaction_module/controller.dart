@@ -22,18 +22,20 @@ class EditTransactionController extends GetxController{
   void saveTransaction(){
     transactionDao.insertTransaction(
       SavedTransactionCompanion(
-        type : m.Value(type),
-        ppc : m.Value(ppc),
-        quantity : m.Value(quantity),
-        fee : m.Value(0.0), //TODO
-        cost : m.Value(totalSpent.value),
-        note : m.Value(''),//TODO
-        updatedAt : m.Value(currentDateTime),
+          investment_sid : m.Value(investment_sid),
+          type : m.Value(type),
+          ppc : m.Value(ppc),
+          quantity : m.Value(quantity),
+          fee : m.Value(0.0), //TODO
+          cost : m.Value(totalSpent.value),
+          note : m.Value(''),//TODO
+          updatedAt : m.Value(currentDateTime),
       )
     );
 
   }
 
+  int investment_sid = 0;
   String type = '';
   String currency = 'USD';
   double ppc = 100.0;
@@ -101,6 +103,7 @@ class EditTransactionController extends GetxController{
     final FormState? form = formKey.currentState;
     if (form!.validate()) {
       print('Form is valid');
+      saveTransaction();
     } else {
       print('Form is invalid');
     }
