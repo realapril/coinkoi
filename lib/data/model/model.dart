@@ -86,4 +86,7 @@ class Transaction{
   var fee;
   var cost;
   var note;
+
+  Transaction( this.type,  this.date,  );
+
 }

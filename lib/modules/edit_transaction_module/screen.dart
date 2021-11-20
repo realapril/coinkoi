@@ -13,7 +13,6 @@ class EditTransactionScreen extends StatefulWidget {
 }
 
 class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerProviderStateMixin{
-  final EditTransactionController eController = Get.put(EditTransactionController());
   late TabController _tabController;
 
   @override
@@ -48,9 +47,9 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
       body: TabBarView(
         controller: _tabController,
         children: [
-          SubScreens(0, eController, Get.arguments[1]['invId'], Get.arguments[2]['symbol']).skeletonView(),
-          SubScreens(1, eController, Get.arguments[1]['invId'], Get.arguments[2]['symbol']).skeletonView(),
-          SubScreens(2, eController, Get.arguments[1]['invId'], Get.arguments[2]['symbol']).skeletonView(),
+          SubScreens(0, Get.arguments[1]['invId'], Get.arguments[2]['symbol'], context).skeletonView(),
+          SubScreens(1, Get.arguments[1]['invId'], Get.arguments[2]['symbol'], context).skeletonView(),
+          SubScreens(2, Get.arguments[1]['invId'], Get.arguments[2]['symbol'], context).skeletonView(),
         ],
       )
     );

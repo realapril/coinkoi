@@ -1,7 +1,18 @@
 
+import 'package:coinkoi/data/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+
+class BuyTransactionController extends GetxController{
+  String currency = 'USD';
+  double ppc = 100.0;
+  double quantity = 1;
+  RxDouble totalSpent = (100.0).obs;
+  RxString currentDate = ''.obs;
+
+}
 
 class EditTransactionController extends GetxController{
   // var coinDao = AppDatabase().savedCoinDao;
@@ -23,6 +34,7 @@ class EditTransactionController extends GetxController{
   double ppc = 100.0;
   double quantity = 1;
   RxDouble totalSpent = (100.0).obs;
+  RxString currentDate = ''.obs;
 
   void setCurrency(String curr){
     currency = curr;
@@ -54,11 +66,15 @@ class EditTransactionController extends GetxController{
     }
   }
 
-  // String getCurrentDate(){
-  //   var now = DateTime.now();
-  //   var formatter = DateFormat('yyyy-MM-dd');
-  //   String formattedDate = formatter.format(now);
-  //   print(formattedDate);
-  //   return formattedDate;
-  // }
+  String setCurrentDate(){
+    // var now = DateTime.now();
+    // var formatter = DateFormat('yyyy-MM-dd');
+    // String formattedDate = formatter.format(now);
+    // print(formattedDate);
+    return DateFormat.yMMMEd().format(DateTime.now());
+  }
+
+  void setNewDate(DateTime date){
+    currentDate.value = DateFormat.yMMMEd().format(date).toString();
+  }
 }
