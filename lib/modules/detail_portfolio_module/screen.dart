@@ -4,7 +4,6 @@ import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/controller.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/appbar.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/bottom_sheet.dart';
-import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:coinkoi/data/services/service.dart';
@@ -64,7 +63,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
                       ],
                     ),
                   ),
-                  _buildTransaction(),
+                  _buildTransactionList(),
               ],
             )),
           ),
@@ -204,7 +203,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
     );
   }
 
-  Widget _buildTransaction() {
+  Widget _buildTransactionList() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,35 +221,28 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
             Get.bottomSheet(
               customBottom()
             );
-
           },
         ),
         StreamBuilder<List<SavedTransactionData>>(
             stream: Get.find<DbService>().getStreamTransactions(),
             builder: (context, snapshot) {
+              print(snapshot.data.toString());
+
               if (snapshot.hasData) {
                 final data = snapshot.data!;
+
                 return ListView.separated(
                   physics: const ClampingScrollPhysics(),
                   itemBuilder: (_, index) {
                     final item = data[index];
-                    return ListTile(
-                      title: Text(item.id.toString()),
-                    );
 
-                    // return CustomDetailListTile(
-                    //   id: item.coin_sid,
-                    //   portfolioId: item.id,
-                    //   icon: item.coin_icon,
-                    //   symbol: item.coin_symbol,
-                    //   pnl: item.PnL,
-                    //   holdings: item.holdings,
-                    //   totalCost: item.totalCost,
-                    //   currency: item.currency,
-                    // );
+                    return ListTile(
+                        title: Text(item.id.toString()),
+                        subtitle: Text(item.type.toString()),
+                    );
                   },
                   separatorBuilder: (_, index) {
-                    return Divider();
+                    return const Divider();
                   },
                   itemCount: data.length,
                   shrinkWrap: true,
@@ -258,7 +250,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
               } else if (snapshot.hasError) {
                 return Center(child: Text(snapshot.error.toString()));
               } else {
-                print('else');
+                print('else.. for ex: data length 0');
                 return Container();
               }
             })

@@ -81,7 +81,7 @@ class _Portfolio extends State<PortfolioScreen> {
                         );
                       },
                       separatorBuilder: (_, index) {
-                        return Divider();
+                        return const Divider();
                       },
                       itemCount: data.length,
                       shrinkWrap: true,
@@ -89,7 +89,7 @@ class _Portfolio extends State<PortfolioScreen> {
                   } else if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));
                   } else {
-                    print('else');
+                    print('portfolio UI Listview : else');
                     return Container();
                   }
                 })
