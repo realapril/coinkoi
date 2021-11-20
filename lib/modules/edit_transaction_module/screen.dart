@@ -48,9 +48,9 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
       body: TabBarView(
         controller: _tabController,
         children: [
-          SubScreens().skeletonView(0, eController),
-          SubScreens().skeletonView(1, eController),
-          SubScreens().skeletonView(2, eController),
+          SubScreens(0, eController, Get.arguments[1]['invId'], Get.arguments[2]['symbol']).skeletonView(),
+          SubScreens(1, eController, Get.arguments[1]['invId'], Get.arguments[2]['symbol']).skeletonView(),
+          SubScreens(2, eController, Get.arguments[1]['invId'], Get.arguments[2]['symbol']).skeletonView(),
         ],
       )
     );

@@ -1,6 +1,4 @@
-import 'package:coinkoi/data/model/model.dart';
-import 'package:coinkoi/data/provider/db_provider.dart';
-import 'package:coinkoi/data/services/service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,19 +19,30 @@ class EditTransactionController extends GetxController{
   //   investmentDao.deleteInvestment(portfolioId);
   // }
 
-  double ppc = 0.0;
+  String currency = 'USD';
+  double ppc = 100.0;
   double quantity = 1;
-  RxDouble totalSpent = (0.0).obs;
+  RxDouble totalSpent = (100.0).obs;
 
-  void setPPC(String ppc){
-    if(ppc.isNotEmpty){
-      totalSpent.value = double.parse(ppc)*quantity;
-    }
+  void setCurrency(String curr){
+    currency = curr;
   }
-  void setQuantity(String quantity){
-    if(quantity.isNotEmpty) {
-      totalSpent.value = ppc * double.parse(quantity);
+  void setPPC(String _ppc){
+    if(_ppc.isNotEmpty){
+      totalSpent.value = double.parse(_ppc)*quantity;
+    }else{
+      ppc= 0.0;
     }
+    print(totalSpent.toString());
+  }
+  void setQuantity(String _quantity){
+    if(_quantity.isNotEmpty) {
+      totalSpent.value = ppc * double.parse(_quantity);
+    }else{
+      quantity = 0.0;
+    }
+    print(totalSpent.toString());
+
   }
 
   void validateAndSave(GlobalKey<FormState> formKey) {
@@ -44,4 +53,12 @@ class EditTransactionController extends GetxController{
       print('Form is invalid');
     }
   }
+
+  // String getCurrentDate(){
+  //   var now = DateTime.now();
+  //   var formatter = DateFormat('yyyy-MM-dd');
+  //   String formattedDate = formatter.format(now);
+  //   print(formattedDate);
+  //   return formattedDate;
+  // }
 }

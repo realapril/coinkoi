@@ -1,11 +1,25 @@
 import 'package:coinkoi/core/style/txt_style.dart';
 import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/modules/edit_transaction_module/local_widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'controller.dart';
 
 class SubScreens{
-  Widget skeletonView(int idx, EditTransactionController eController){
+  const SubScreens(
+      this.idx,
+      this.eController,
+      this.investmentId,
+      this.symbol,
+  );
+
+  final int idx;
+  final EditTransactionController eController;
+  final int investmentId;
+  final String symbol;
+
+  Widget skeletonView(){
     if(idx ==0){
       return Column(
         children: [
@@ -93,20 +107,12 @@ class SubScreens{
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15.0),
-                            child: Text('Price Per Coin', style: TxtStyle.body3),
-                        ),
-                      ],
-                    ),
-
+                    introWidget('Price Per Coin'),
                     Row(
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.all(6.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 6.0),
                             child: TextFormField(
                               style: TxtStyle.body1,
                               cursorColor: koiColor,
@@ -123,11 +129,7 @@ class SubScreens{
                     ),
 
                     const Divider(color: Colors.white70),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text('Quantity', style: TxtStyle.body3),
-                    ),
+                    introWidget('Quantity'),
                     Row(
                       children: [
                         Expanded(
@@ -142,28 +144,47 @@ class SubScreens{
                             onChanged: (value) => eController.setQuantity(value),
                           ),
                         ),
-                        Text('LUNA', style: TxtStyle.body1,
+                        Text(symbol, style: TxtStyle.body1,
                         ),
 
                       ],
                     ),
                     const Divider(color: Colors.white70),
+                    introWidget('Total Spent'),
+                    Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.grey  // green as background color
+                        ),
+                        child: Obx(() =>
+                            Padding(
+                                padding: EdgeInsets.fromLTRB(18, 16, 18, 16),
+                                child: Text(
+                                    eController.currency + ' ' +eController.totalSpent.value.toString(), style: TxtStyle.body4
+                                )
+                            ),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text('Total Spent', style: TxtStyle.body3),
+                        ),
                     ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration.collapsed(
-                        hintText: 'ss',
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text('Date', style: TxtStyle.body3),
-                    ),
+                    introWidget('Date'),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '',
+                            style: TxtStyle.body1,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.calendar_today),
+                          onPressed: () {
 
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(color: Colors.white70),
                   ],
                 ),
               ),
