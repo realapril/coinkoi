@@ -21,10 +21,10 @@ class SubScreens {
 
   Widget skeletonView() {
     final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
-    eController0.currentDate.value = eController0.setCurrentDate();
+    eController0.currentDateStr.value = eController0.setCurrentDate();
 
     final EditTransactionController eController = Get.put(EditTransactionController(), tag: "sell");
-    eController.currentDate.value = eController.setCurrentDate();
+    eController.currentDateStr.value = eController.setCurrentDate();
 
     if (idx == 0) {
       return Column(
@@ -152,11 +152,11 @@ class SubScreens {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: Colors.grey // green as background color
+                      color: Colors.grey[600] // green as background color
                       ),
                   child: Obx(
                     () => Padding(
-                        padding: EdgeInsets.fromLTRB(18, 16, 18, 16),
+                        padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
                         child: Text(
                             eController.currency +
                                 ' ' +
@@ -168,27 +168,21 @@ class SubScreens {
                 Row(
                   children: [
                     Expanded(
-                      child: Obx(
-                        () => Text(
-                          eController.currentDate.value,
-                          style: TxtStyle.body1,
+                      child: GestureDetector(
+                        child: Obx(
+                          () => Text(
+                            eController.currentDateStr.value,
+                            style: TxtStyle.body1,
+                          ),
                         ),
+                        onTap: ()=> _showDatePicker(eController),
                       ),
                     ),
                     IconButton(
                       icon: const Icon(Icons.calendar_today_outlined),
                       onPressed: () {
-                          showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(DateTime.now().year - 10),
-                                lastDate: DateTime(DateTime.now().year + 50)).then((date) => {
-                             if(date !=null){
-                               eController.setNewDate(date)
-                           }
-                         }
-                       );
-                      },
+                        _showDatePicker(eController);
+                      }
                     ),
                   ],
                 ),
@@ -199,6 +193,19 @@ class SubScreens {
         ]),
       ),
     ));
+  }
+
+  void _showDatePicker(EditTransactionController eController){
+    showDatePicker(
+        context: context,
+        initialDate: eController.currentDateTime,
+        firstDate: DateTime(eController.currentDateTime.year - 10),
+        lastDate: DateTime(eController.currentDateTime.year + 50)).then((date) => {
+      if(date !=null){
+        eController.setNewDate(date)
+        }
+      }
+    );
   }
 
   Widget transferView() {
