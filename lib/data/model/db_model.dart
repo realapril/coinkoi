@@ -124,7 +124,13 @@ class SavedCoinDao extends DatabaseAccessor<AppDatabase> with _$SavedCoinDaoMixi
 class SavedTransactionDao extends DatabaseAccessor<AppDatabase> with _$SavedTransactionDaoMixin {
   SavedTransactionDao(AppDatabase db) : super(db);
 
-  Stream<List<SavedTransactionData>> streamTransactions() => select(savedTransaction).watch();
+  Stream<List<SavedTransactionData>> streamTransactions() {
+    var res = select(savedTransaction).watch();
+    // print(res.length);
+    print(res.toString());
+
+    return res;
+  }
 
   Future<List<SavedTransactionData>> getTransaction(int id) =>
       (select(savedTransaction)..where((tbl) => tbl.id.equals(id))).get();

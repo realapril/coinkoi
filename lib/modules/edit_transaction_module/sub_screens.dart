@@ -22,35 +22,41 @@ class SubScreens {
   Widget skeletonView() {
     final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
     eController0.currentDateStr.value = eController0.setCurrentDate();
+    eController0.type = 'buy';
+    final GlobalKey<FormState> _formKey0 = GlobalKey<FormState>();
 
-    final EditTransactionController eController = Get.put(EditTransactionController(), tag: "sell");
-    eController.currentDateStr.value = eController.setCurrentDate();
+
+    final EditTransactionController eController1 = Get.put(EditTransactionController(), tag: "sell");
+    eController1.currentDateStr.value = eController1.setCurrentDate();
+    eController1.type = 'sell';
+    final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
+
 
     if (idx == 0) {
       return Column(
         children: [
-          Expanded(child: buyAndSellView(eController0, idx)),
-          _bottomButton(eController0),
+          Expanded(child: buyAndSellView(eController0, idx, _formKey0)),
+          _bottomButton(eController0, _formKey0),
         ],
       );
     } else if (idx == 1) {
       return Column(
         children: [
-          Expanded(child: buyAndSellView(eController, idx)),
-          _bottomButton(eController),
+          Expanded(child: buyAndSellView(eController1, idx, _formKey1)),
+          _bottomButton(eController1, _formKey1),
         ],
       );
     } else {
       return Column(
         children: [
           Expanded(child: transferView()),
-          _bottomButton(eController),
+          // _bottomButton(eController),
         ],
       );
     }
   }
 
-  Widget _bottomButton(EditTransactionController eController) {
+  Widget _bottomButton(EditTransactionController eController, GlobalKey<FormState> _formKey) {
     return Container(
       child: Row(
         children: [
@@ -62,7 +68,9 @@ class SubScreens {
                   primary: koiColor,
                   onSurface: koiColor,
                   side: const BorderSide(color: koiColor, width: 1)),
-              onPressed: () {},
+              onPressed: () {
+
+              },
               child: Text(
                 'Cancel',
                 style: TxtStyle.button,
@@ -76,7 +84,13 @@ class SubScreens {
               style: OutlinedButton.styleFrom(
                   primary: Colors.white, backgroundColor: koiColor),
               onPressed: () {
-                // eController.validateAndSave();
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
+                  eController.validateAndSave(_formKey);
+                  Get.back();
+                }
               },
               child: Text(
                 'Submit',
@@ -91,8 +105,7 @@ class SubScreens {
     );
   }
 
-  Widget buyAndSellView(EditTransactionController eController, int idx) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Widget buyAndSellView(EditTransactionController eController, int idx, GlobalKey<FormState> _formKey) {
     return SafeArea(
         child: SingleChildScrollView(
       child: Form(
@@ -128,6 +141,13 @@ class SubScreens {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 6.0),
                         child: TextFormField(
+                          validator: (value) {
+                            if (eController.isValidate(value)) {
+                              return null;
+                            } else {
+                              return "Not valid";
+                            }
+                          },
                           style: TxtStyle.body1,
                           cursorColor: koiColor,
                           keyboardType: TextInputType.number,
@@ -148,6 +168,13 @@ class SubScreens {
                     Expanded(
                       child: TextFormField(
                         style: TxtStyle.body1,
+                        validator: (value) {
+                          if (eController.isValidate(value)) {
+                            return null;
+                          } else {
+                            return "Not valid";
+                          }
+                        },
                         cursorColor: koiColor,
                         keyboardType: TextInputType.number,
                         initialValue: "1",

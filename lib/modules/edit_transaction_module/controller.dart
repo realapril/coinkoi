@@ -1,8 +1,10 @@
 
-import 'package:coinkoi/data/model/model.dart';
+import 'package:coinkoi/data/provider/db_provider.dart';
+import 'package:coinkoi/data/services/service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:moor/moor.dart' as m;
 
 
 class BuyTransactionController extends GetxController{
@@ -15,21 +17,24 @@ class BuyTransactionController extends GetxController{
 }
 
 class EditTransactionController extends GetxController{
-  // var coinDao = AppDatabase().savedCoinDao;
-  // var investmentDao = AppDatabase().savedInvestmentDao;
+  var transactionDao = Get.find<DbService>().db.savedTransactionDao;
 
-  // List<Investment> investments = <Investment>[].obs;
-  //
-  // var coinDao = Get.find<DbService>().db.savedCoinDao;
-  // var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
-  //
-  // void deleteCoin(int coinId){
-  //   coinDao.deleteCoin(coinId);
-  // }
-  // void deletePortfolio(int portfolioId){
-  //   investmentDao.deleteInvestment(portfolioId);
-  // }
+  void saveTransaction(){
+    transactionDao.insertTransaction(
+      SavedTransactionCompanion(
+        type : m.Value(type),
+        ppc : m.Value(ppc),
+        quantity : m.Value(quantity),
+        fee : m.Value(0.0), //TODO
+        cost : m.Value(totalSpent.value),
+        note : m.Value(''),//TODO
+        updatedAt : m.Value(currentDateTime),
+      )
+    );
 
+  }
+
+  String type = '';
   String currency = 'USD';
   double ppc = 100.0;
   double quantity = 1;
@@ -41,31 +46,24 @@ class EditTransactionController extends GetxController{
     currency = curr;
   }
   void setPPC(String _ppc){
-    if(_ppc.isNotEmpty){
+    if(_ppc.isNotEmpty && isNumeric(_ppc)){
       totalSpent.value = double.parse(_ppc)*quantity;
     }else{
       ppc= 0.0;
+      totalSpent.value = ppc * quantity;
     }
-    print(totalSpent.toString());
+    // print(totalSpent.toString());
   }
   void setQuantity(String _quantity){
-    if(_quantity.isNotEmpty) {
+    if(_quantity.isNotEmpty  && isNumeric(_quantity)) {
       totalSpent.value = ppc * double.parse(_quantity);
     }else{
       quantity = 0.0;
+      totalSpent.value = ppc * quantity;
     }
-    print(totalSpent.toString());
-
+    // print(totalSpent.toString());
   }
 
-  void validateAndSave(GlobalKey<FormState> formKey) {
-    final FormState? form = formKey.currentState;
-    if (form!.validate()) {
-      print('Form is valid');
-    } else {
-      print('Form is invalid');
-    }
-  }
 
   String setCurrentDate(){
     // var now = DateTime.now();
@@ -79,5 +77,32 @@ class EditTransactionController extends GetxController{
   void setNewDate(DateTime date){
     currentDateTime = date;
     currentDateStr.value = DateFormat.yMMMEd().format(currentDateTime).toString();
+  }
+
+  bool isValidate(String? value){
+    if(value!=null){
+      if(value.isNotEmpty){
+        if(isNumeric(value)){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  bool isNumeric(String? s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+
+  void validateAndSave(GlobalKey<FormState> formKey) {
+    final FormState? form = formKey.currentState;
+    if (form!.validate()) {
+      print('Form is valid');
+    } else {
+      print('Form is invalid');
+    }
   }
 }
