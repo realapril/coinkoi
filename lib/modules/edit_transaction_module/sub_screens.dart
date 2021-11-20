@@ -107,6 +107,23 @@ class SubScreens {
                 introWidget('Price Per Coin'),
                 Row(
                   children: [
+                    GestureDetector(
+                      // onTap: , //TODO
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: eController.currency,
+                              style: TxtStyle.body1,
+                            ),
+                            const WidgetSpan(
+                              child: Icon(Icons.keyboard_arrow_down, size: 23),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10,),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 6.0),
@@ -158,12 +175,12 @@ class SubScreens {
                     () => Padding(
                         padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
                         child: Text(
-                            eController.currency +
-                                ' ' +
+                            eController.currency + ' ' +
                                 eController.totalSpent.value.toString(),
                             style: TxtStyle.body4)),
                   ),
                 ),
+                const SizedBox(height: 10,),
                 introWidget('Date'),
                 Row(
                   children: [
