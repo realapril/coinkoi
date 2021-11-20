@@ -69,7 +69,7 @@ class SubScreens {
                   onSurface: koiColor,
                   side: const BorderSide(color: koiColor, width: 1)),
               onPressed: () {
-
+                Get.back();
               },
               child: Text(
                 'Cancel',
