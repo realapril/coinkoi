@@ -55,4 +55,8 @@ class DbService extends GetxService {
   Stream<List<SavedTransactionData>> getStreamTransactions(){
     return db.savedTransactionDao.streamTransactions();
   }
+
+  Stream<List<SavedTransactionData>> findStreamTransactions(int invId){
+    return db.savedTransactionDao.findStreamTransactions(invId);
+  }
 }

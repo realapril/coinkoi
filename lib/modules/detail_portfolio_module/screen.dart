@@ -224,10 +224,8 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
           },
         ),
         StreamBuilder<List<SavedTransactionData>>(
-            stream: Get.find<DbService>().getStreamTransactions(),
+            stream: Get.find<DbService>().findStreamTransactions(Get.arguments[0]['investmentId']),
             builder: (context, snapshot) {
-              print(snapshot.data.toString());
-
               if (snapshot.hasData) {
                 final data = snapshot.data!;
 

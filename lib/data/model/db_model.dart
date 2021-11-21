@@ -126,6 +126,8 @@ class SavedTransactionDao extends DatabaseAccessor<AppDatabase> with _$SavedTran
 
   Stream<List<SavedTransactionData>> streamTransactions() =>select(savedTransaction).watch();
 
+  Stream<List<SavedTransactionData>> findStreamTransactions(int invId) =>(select(savedTransaction)..where((tbl) => tbl.investment_sid.equals(invId))).watch();
+
   Future<List<SavedTransactionData>> getTransaction(int id) =>
       (select(savedTransaction)..where((tbl) => tbl.id.equals(id))).get();
 
