@@ -39,10 +39,8 @@ class CustomDetailListTile extends StatelessWidget {
   Widget buildInvestmentUI(){
     return Expanded(flex: 7,
         child: GestureDetector(
-          onTap: ()=> Get.bottomSheet(customBottom()),
+          onTap: ()=> Get.bottomSheet(customBottom(data, currency, symbol)),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),

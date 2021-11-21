@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 
 class TxtStyle{
   static TextStyle sample = const TextStyle(
-  color: Colors.black,
-  decoration: TextDecoration.underline,
-  decorationColor: Colors.red,
-  decorationStyle: TextDecorationStyle.wavy,
+      color: Colors.black,
+      decoration: TextDecoration.underline,
+      decorationColor: Colors.red,
+      decorationStyle: TextDecorationStyle.wavy,
       fontWeight: FontWeight.bold,
       fontSize: 20
   );
@@ -27,6 +27,12 @@ class TxtStyle{
     color: Colors.white
   );
 
+  static TextStyle body3_bold = const TextStyle(
+      fontSize: 14,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+  );
+
   static TextStyle body4 = const TextStyle(
     fontSize: 20,
   );
@@ -35,10 +41,21 @@ class TxtStyle{
     fontSize: 24,
   );
 
+  static TextStyle body6 = const TextStyle(
+      fontSize: 16,
+      color: Colors.white
+  );
+
+  static TextStyle body7 = const TextStyle(
+      fontSize: 16,
+      color: Color(0xFFBDBDBD)
+  );
+
   static TextStyle button = const TextStyle(
     fontSize: 18,
     color: Colors.white
   );
+
 
   static TextStyle appBar = const TextStyle(
       fontWeight: FontWeight.bold,
