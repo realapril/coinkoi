@@ -4,6 +4,7 @@ import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/controller.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/appbar.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/bottom_sheet.dart';
+import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:coinkoi/data/services/service.dart';
@@ -212,17 +213,6 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
             padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 20.0 ),
             child: Text("Transaction History", style: TxtStyle.body1)
         ),
-        ElevatedButton(
-          child: Text(
-            'open',
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {
-            Get.bottomSheet(
-              customBottom()
-            );
-          },
-        ),
         StreamBuilder<List<SavedTransactionData>>(
             stream: Get.find<DbService>().findStreamTransactions(Get.arguments[0]['investmentId']),
             builder: (context, snapshot) {
@@ -234,9 +224,10 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
                   itemBuilder: (_, index) {
                     final item = data[index];
 
-                    return ListTile(
-                        title: Text(item.id.toString()),
-                        subtitle: Text(item.type.toString()),
+                    return CustomDetailListTile(
+                      data: item,
+                      currency: getInvestment().currency,
+                      symbol: getInvestment().coin_symbol
                     );
                   },
                   separatorBuilder: (_, index) {

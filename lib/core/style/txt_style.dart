@@ -31,7 +31,7 @@ class TxtStyle{
     fontSize: 20,
   );
 
-  static TextStyle title5 = const TextStyle(
+  static TextStyle body5 = const TextStyle(
     fontSize: 24,
   );
 

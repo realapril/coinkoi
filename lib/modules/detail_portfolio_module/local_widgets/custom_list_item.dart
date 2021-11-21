@@ -1,79 +1,75 @@
+import 'package:coinkoi/core/style/txt_style.dart';
+import 'package:coinkoi/data/provider/db_provider.dart';
+import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controller.dart';
 
 class CustomDetailListTile extends StatelessWidget {
   const CustomDetailListTile({
-    required this.id,
-    required this.type,
-    required this.updatedAt,
+    required this.data,
+    required this.currency,
     required this.symbol,
-    required this.quantity,
-    required this.totalCost,
-    required this.currency
+
   });
 
-  final int id;
-  final String type;
-  final String updatedAt;
-  final String symbol;
-  final double quantity;
-  final double totalCost;
+  final SavedTransactionData data;
   final String currency;
+  final String symbol;
 
   @override
   Widget build(BuildContext context) {
-    final DetailPortfolioController pController = Get.put(DetailPortfolioController());
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          // buildInvestmentUI(pController, context),
+          buildInvestmentUI(),
         ],
       ),
     );
   }
 
 
-  // Widget buildInvestmentUI(DetailPortfolioController pController, BuildContext context){
-  //   return Expanded(flex: 7,
-  //       child: GestureDetector(
-  //         onTap: ()=> Get.toNamed("/detailPortfolio", arguments: [{"investmentId": portfolioId}, {"coinId": id}]),
-  //         child: Row(
-  //           children: <Widget>[
-  //             Expanded(flex: 2,
-  //               child: Column(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   Image(image: AssetImage(icon)),
-  //                   Text(symbol, textAlign: TextAlign.center)
-  //                 ],
-  //               ),
-  //             ),
-  //             Expanded(flex: 2,
-  //                 child: Text( pnl.toString() +"%  ", textAlign: TextAlign.right ,
-  //                   style: TextStyle(
-  //                       color: pnl < 0 ? Colors.red : Colors.green ),
-  //                 )),
-  //             Expanded(flex: 3,
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-  //                 children: [
-  //
-  //                   Text(currency +" "+ totalCost.toString(), textAlign: TextAlign.right ), //TODO make currency changeable
-  //                   Text(holdings.toString() + " " + symbol, textAlign: TextAlign.right)
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       )
-  //   );
-  // }
+
+  Widget buildInvestmentUI(){
+    return Expanded(flex: 7,
+        child: GestureDetector(
+          onTap: ()=> Get.bottomSheet(customBottom()),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.arrow_forward),
+                    Text(" "+data.type, style: TxtStyle.body1),
+                    const Spacer(),
+                    Text(data.quantity.toString()+" "+symbol , style: TxtStyle.body1),
+                    const Icon(Icons.arrow_right),
+                  ],
+                ),
+              ),
+              Row(children: [
+                const SizedBox(width: 16),
+                Text(DateFormat.yMMMd().format(data.updatedAt), style: TxtStyle.body2,),
+                const Spacer(),
+                Text(currency +data.cost.toString() , style: TxtStyle.body2,),
+                const SizedBox(width: 16)
+              ],
+              )
+            ],
+          )
+        )
+    );
+  }
   
 
 

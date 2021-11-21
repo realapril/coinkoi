@@ -22,14 +22,14 @@ class SubScreens {
   Widget skeletonView() {
     final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
     eController0.currentDateStr.value = eController0.setCurrentDate();
-    eController0.type = 'buy';
+    eController0.type = 'Buy';
     eController0.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey0 = GlobalKey<FormState>();
 
 
     final EditTransactionController eController1 = Get.put(EditTransactionController(), tag: "sell");
     eController1.currentDateStr.value = eController1.setCurrentDate();
-    eController1.type = 'sell';
+    eController1.type = 'Sell';
     eController1.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
 
