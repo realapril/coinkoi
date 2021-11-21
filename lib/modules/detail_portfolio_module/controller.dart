@@ -22,7 +22,7 @@ class DetailPortfolioController extends GetxController{
   }
 
   void deleteTransaction(int transactionId) async {
-    transactionList.value = await transactionDao.getTransaction(transactionId);
+    await transactionDao.deleteTransaction(transactionId);
   }
 
   // var coinDao = Get.find<DbService>().db.savedCoinDao;

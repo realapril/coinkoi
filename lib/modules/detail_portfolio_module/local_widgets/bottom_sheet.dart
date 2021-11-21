@@ -38,7 +38,7 @@ Widget customBottom(SavedTransactionData data, String currency, String symbol){
               ),
             ),
           ),
-          _buildBottomButton(),
+          _buildBottomButton(data.id),
         ],
       ),
     ),
@@ -55,7 +55,6 @@ Widget _oneRow(String key, String value){
         const Spacer(),
         Text(value , style: TxtStyle.body7),
       ],
-
     ),
   );
 }
@@ -68,7 +67,7 @@ Widget _noteRow(String notes){
   );
 }
 
-Widget _buildBottomButton() {
+Widget _buildBottomButton(int transactionId) {
   final DetailPortfolioController dpController = Get.put(DetailPortfolioController());
   return Container(
     child: Row(
@@ -81,8 +80,8 @@ Widget _buildBottomButton() {
                 onSurface: koiColor,
                 side: const BorderSide(color: koiColor, width: 1)),
             onPressed: () {
-
-
+                Get.back();
+                dpController.deleteTransaction(transactionId);
             },
             child: Text(
               'Delete',
