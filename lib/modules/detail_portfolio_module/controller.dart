@@ -21,6 +21,10 @@ class DetailPortfolioController extends GetxController{
     transactionList.value = await transactionDao.getTransaction(transactionId);
   }
 
+  void deleteTransaction(int transactionId) async {
+    transactionList.value = await transactionDao.getTransaction(transactionId);
+  }
+
   // var coinDao = Get.find<DbService>().db.savedCoinDao;
   // final coinList = <SavedCoinData>[].obs;
   // void getCoin(int coinId) async {
