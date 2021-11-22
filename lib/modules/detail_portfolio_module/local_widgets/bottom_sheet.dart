@@ -1,6 +1,7 @@
 
 import 'package:coinkoi/core/style/txt_style.dart';
 import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/controller.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ Widget customBottom(SavedTransactionData data, String currency, String symbol){
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _oneRow('Type', data.type),
+                  _oneRow('Type', data.type.stringValues),
                   _oneRow('Date', DateFormat.yMMMd().format(data.updatedAt)),
                   _oneRow('Price Per Coin', currency + data.ppc.toString()),
                   _oneRow('Quantity', data.quantity.toString() + " " + symbol),

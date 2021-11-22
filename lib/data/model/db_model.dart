@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:moor/moor.dart';
 
@@ -59,7 +60,7 @@ class SavedTransaction extends Table {
 
   IntColumn get investment_sid => integer()();
 
-  TextColumn get type => text()();
+  IntColumn get type => intEnum<TransactionType>()();
 
   RealColumn get ppc => real()(); //price per coin
 
@@ -78,7 +79,7 @@ class SavedTransaction extends Table {
 }
 
 
-enum TransactionType { TYPE_BUY, TYPE_SELL, TYPE_IN, TYPE_OUT }
+
 
 
 @UseDao(tables: [SavedInvestment])

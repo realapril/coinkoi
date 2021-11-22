@@ -1,4 +1,5 @@
 import 'package:coinkoi/core/style/txt_style.dart';
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,6 @@ class CustomDetailListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
@@ -48,7 +48,7 @@ class CustomDetailListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Icon(Icons.arrow_forward),
-                    Text(" "+data.type, style: TxtStyle.body1),
+                    Text(" "+data.type.stringValues, style: TxtStyle.body1),
                     const Spacer(),
                     Text(data.quantity.toString()+" "+symbol , style: TxtStyle.body1),
                     const Icon(Icons.arrow_right),

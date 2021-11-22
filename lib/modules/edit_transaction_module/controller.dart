@@ -1,4 +1,5 @@
 
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class EditTransactionController extends GetxController{
   }
 
   int investment_sid = 0;
-  String type = '';
+  late TransactionType type ;
   String currency = 'USD';
   double ppc = 100.0;
   double quantity = 1;

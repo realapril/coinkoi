@@ -211,7 +211,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 20.0 ),
+            padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 0),
             child: Text("Transaction History", style: TxtStyle.body1)
         ),
         StreamBuilder<List<SavedTransactionData>>(

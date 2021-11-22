@@ -1,5 +1,6 @@
 import 'package:coinkoi/core/style/txt_style.dart';
 import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/modules/edit_transaction_module/local_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,14 +23,14 @@ class SubScreens {
   Widget skeletonView() {
     final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
     eController0.currentDateStr.value = eController0.setCurrentDate();
-    eController0.type = 'Buy';
+    eController0.type = TransactionType.Buy;
     eController0.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey0 = GlobalKey<FormState>();
 
 
     final EditTransactionController eController1 = Get.put(EditTransactionController(), tag: "sell");
     eController1.currentDateStr.value = eController1.setCurrentDate();
-    eController1.type = 'Sell';
+    eController1.type = TransactionType.Sell;
     eController1.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/model/db_model.dart';
 import 'package:moor/moor.dart';
 import 'package:moor/ffi.dart';
