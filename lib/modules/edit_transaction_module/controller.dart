@@ -8,15 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:moor/moor.dart' as m;
 
 
-class BuyTransactionController extends GetxController{
-  String currency = 'USD';
-  double ppc = 100.0;
-  double quantity = 1;
-  RxDouble totalSpent = (100.0).obs;
-  RxString currentDate = ''.obs;
-
-}
-
 class EditTransactionController extends GetxController{
   var transactionDao = Get.find<DbService>().db.savedTransactionDao;
 
@@ -41,14 +32,14 @@ class EditTransactionController extends GetxController{
 
   int investment_sid = 0;
   late TransactionType type ;
-  String currency = 'USD';
+  CurrencyType currency = CurrencyType.USD;
   double ppc = 100.0;
   double quantity = 1;
   RxDouble totalSpent = (100.0).obs;
   RxString currentDateStr = ''.obs;
   late DateTime currentDateTime ;
 
-  void setCurrency(String curr){
+  void setCurrency(CurrencyType curr){
     currency = curr;
   }
   void setPPC(String _ppc){

@@ -1,3 +1,4 @@
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:coinkoi/modules/portfolio_module/controller.dart';
@@ -19,7 +20,7 @@ class _Portfolio extends State<PortfolioScreen> {
   @override
   void initState() {
     super.initState();
-    ;
+
   }
 
   @override
@@ -77,7 +78,7 @@ class _Portfolio extends State<PortfolioScreen> {
                           pnl: item.PnL,
                           holdings: item.holdings,
                           totalCost: item.totalCost,
-                          currency: item.currency,
+                          currency: item.currency.symbol,
                         );
                       },
                       separatorBuilder: (_, index) {

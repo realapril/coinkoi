@@ -1,3 +1,4 @@
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/data/model/model.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
@@ -54,9 +55,10 @@ class CoinSearchController extends GetxController{
           PnL: const m.Value(0.0),
           totalCost: const m.Value(0.0),
           aveNetCost: const m.Value(0.0),
-          currency: const m.Value("\$"),
+          currency: const m.Value(CurrencyType.USD),
           transactions : const m.Value(""),
         )
+
     );
   }
 

@@ -23,14 +23,14 @@ class SubScreens {
   Widget skeletonView() {
     final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
     eController0.currentDateStr.value = eController0.setCurrentDate();
-    eController0.type = TransactionType.Buy;
+    eController0.type = TransactionType.buy;
     eController0.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey0 = GlobalKey<FormState>();
 
 
     final EditTransactionController eController1 = Get.put(EditTransactionController(), tag: "sell");
     eController1.currentDateStr.value = eController1.setCurrentDate();
-    eController1.type = TransactionType.Sell;
+    eController1.type = TransactionType.sell;
     eController1.investment_sid = investmentId;
     final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
 
@@ -143,7 +143,7 @@ class SubScreens {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: eController.currency,
+                              text: eController.currency.strName,
                               style: TxtStyle.body1,
                             ),
                             const WidgetSpan(
@@ -219,7 +219,7 @@ class SubScreens {
                     () => Padding(
                         padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
                         child: Text(
-                            eController.currency + ' ' +
+                            eController.currency.strName + ' ' +
                                 eController.totalSpent.value.toString(),
                             style: TxtStyle.body4)),
                   ),

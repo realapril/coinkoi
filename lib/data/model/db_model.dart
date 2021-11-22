@@ -44,7 +44,7 @@ class SavedInvestment extends Table {
 
   RealColumn get aveNetCost => real()();
 
-  TextColumn get currency => text()();
+  IntColumn get currency => intEnum<CurrencyType>()();
 
   TextColumn get transactions => text()();
 

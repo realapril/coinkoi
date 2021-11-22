@@ -1,9 +1,9 @@
 import 'package:coinkoi/core/style/txt_style.dart';
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/core/theme/color_theme.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/controller.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/appbar.dart';
-import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/bottom_sheet.dart';
 import 'package:coinkoi/modules/detail_portfolio_module/local_widgets/custom_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -146,7 +146,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
               padding: topPadding(),
               child: Obx(() => Text(
                   isDataLoaded()
-                      ? getInvestment().currency +
+                      ? getInvestment().currency.symbol +
                           getInvestment().totalCost.toString()
                       : "",
                   style: TxtStyle.body1))),
@@ -169,7 +169,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
             padding: topPadding(),
             child: Obx(() => Text(
                 isDataLoaded()
-                    ? getInvestment().currency +
+                    ? getInvestment().currency.symbol +
                         getInvestment().aveNetCost.toString()
                     : "",
                 style: TxtStyle.body1)),
@@ -193,7 +193,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
             padding: topPadding(),
             child: Obx(() => Text(
                 isDataLoaded()
-                    ? getInvestment().currency + getInvestment().PnL.toString()
+                    ? getInvestment().currency.symbol + getInvestment().PnL.toString()
                     : "",
                 style: TxtStyle.body1)),
           ),
@@ -227,7 +227,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
 
                     return CustomDetailListTile(
                       data: item,
-                      currency: getInvestment().currency,
+                      currency: getInvestment().currency.symbol,
                       symbol: getInvestment().coin_symbol
                     );
                   },
