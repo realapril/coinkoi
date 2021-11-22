@@ -20,11 +20,12 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
   final DetailPortfolioController dpController =
       Get.put(DetailPortfolioController());
   late SavedCoinData coinData;
+  var invId;
 
   @override
   void initState() {
     super.initState();
-    Get.arguments[0]['investmentId'];
+    invId = Get.arguments[0]['investmentId'];
     Get.arguments[1]['coinId'];
     dpController.getPortfolio(Get.arguments[0]['investmentId']);
     // print(dpController.coinList[0]);
@@ -214,7 +215,7 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
             child: Text("Transaction History", style: TxtStyle.body1)
         ),
         StreamBuilder<List<SavedTransactionData>>(
-            stream: Get.find<DbService>().findStreamTransactions(Get.arguments[0]['investmentId']),
+            stream: Get.find<DbService>().findStreamTransactions(invId),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final data = snapshot.data!;

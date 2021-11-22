@@ -20,6 +20,9 @@ class EditTransactionController extends GetxController{
   var transactionDao = Get.find<DbService>().db.savedTransactionDao;
 
   void saveTransaction(){
+    print(quantity.toString()+"이거이거이거");
+    print(ppc.toString()+"이거이거");
+
     transactionDao.insertTransaction(
       SavedTransactionCompanion(
           investment_sid : m.Value(investment_sid),
@@ -49,20 +52,21 @@ class EditTransactionController extends GetxController{
   }
   void setPPC(String _ppc){
     if(_ppc.isNotEmpty && isNumeric(_ppc)){
-      totalSpent.value = double.parse(_ppc)*quantity;
+      ppc = double.parse(_ppc);
     }else{
       ppc= 0.0;
-      totalSpent.value = ppc * quantity;
     }
+    totalSpent.value = ppc * quantity;
     // print(totalSpent.toString());
   }
   void setQuantity(String _quantity){
     if(_quantity.isNotEmpty  && isNumeric(_quantity)) {
-      totalSpent.value = ppc * double.parse(_quantity);
+      quantity = double.parse(_quantity);
     }else{
       quantity = 0.0;
-      totalSpent.value = ppc * quantity;
     }
+    totalSpent.value = ppc * quantity;
+
     // print(totalSpent.toString());
   }
 
