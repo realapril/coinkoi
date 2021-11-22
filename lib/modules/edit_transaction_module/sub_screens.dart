@@ -134,7 +134,7 @@ class SubScreens {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                introWidget('Price Per Coin'),
+                introWidget('Price Per Coin', true),
                 Row(
                   children: [
                     GestureDetector(
@@ -179,7 +179,7 @@ class SubScreens {
                   ],
                 ),
                 const Divider(color: Colors.white70),
-                introWidget('Quantity'),
+                introWidget('Quantity', true),
                 Row(
                   children: [
                     Expanded(
@@ -208,7 +208,7 @@ class SubScreens {
                   ],
                 ),
                 const Divider(color: Colors.white70),
-                introWidget('Total Spent'),
+                introWidget('Total Spent', false),
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -225,7 +225,7 @@ class SubScreens {
                   ),
                 ),
                 const SizedBox(height: 10,),
-                introWidget('Date'),
+                introWidget('Date', true),
                 Row(
                   children: [
                     Expanded(

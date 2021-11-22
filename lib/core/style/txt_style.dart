@@ -51,6 +51,11 @@ class TxtStyle{
       color: Color(0xFFBDBDBD)
   );
 
+  static TextStyle body8 = const TextStyle(
+      fontSize: 14,
+      color: Colors.red
+  );
+
   static TextStyle button = const TextStyle(
     fontSize: 18,
     color: Colors.white
