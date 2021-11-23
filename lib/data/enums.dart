@@ -69,6 +69,8 @@ extension CurrencyTypeExtension on CurrencyType {
     switch (this) {
       case CurrencyType.USD:
         return "\$";
+      case CurrencyType.AED:
+        return "DH";
       case CurrencyType.ARS:
         return "\$";
       case CurrencyType.AUD:
@@ -163,6 +165,8 @@ extension CurrencyTypeExtension on CurrencyType {
     switch (this) {
       case CurrencyType.USD:
         return "USD";
+      case CurrencyType.AED:
+        return "AED";
       case CurrencyType.ARS:
         return "ARS";
       case CurrencyType.AUD:

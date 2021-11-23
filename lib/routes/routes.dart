@@ -6,6 +6,8 @@ class Routes {
   static const detailPortfolio = '/detailPortfolio';
   static const editTransaction = '/editTransaction';
   static const coinSearch = '/coinSearch';
+  static const currencySearch = '/currencySearch';
+
 
   static const calculator = '/calculator';
 

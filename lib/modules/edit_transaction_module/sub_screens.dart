@@ -138,7 +138,9 @@ class SubScreens {
                 Row(
                   children: [
                     GestureDetector(
-                      // onTap: , //TODO
+                      onTap: ()=> Get.toNamed("/currencySearch", arguments: [
+                        {"currency":eController.currency}
+                      ]),
                       child: RichText(
                         text: TextSpan(
                           children: [

@@ -70,12 +70,13 @@ class Portfolio{
 
 
 class Currency{
-  int id;
+  bool isSelected;
   String name;
   String symbol;
   var icon;
 
-  Currency({required this.id, required this.name, required this.symbol, this.icon});
+  Currency({this.isSelected = false, required this.name, required this.symbol, this.icon});
+
 }
 
 class Transaction{
