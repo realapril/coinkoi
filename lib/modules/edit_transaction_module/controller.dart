@@ -10,6 +10,7 @@ import 'package:moor/moor.dart' as m;
 
 class EditTransactionController extends GetxController{
   var transactionDao = Get.find<DbService>().db.savedTransactionDao;
+  var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
 
   void saveTransaction(){
     print(quantity.toString()+"이거이거이거");
@@ -28,11 +29,14 @@ class EditTransactionController extends GetxController{
       )
     );
 
+    //Todo update currency
+    //investmentDao.update(table)
+
   }
 
   int investment_sid = 0;
   late TransactionType type ;
-  CurrencyType currency = CurrencyType.USD;
+  Rx<CurrencyType> currency = CurrencyType.USD.obs;
   double ppc = 100.0;
   double quantity = 1;
   RxDouble totalSpent = (100.0).obs;
@@ -40,7 +44,7 @@ class EditTransactionController extends GetxController{
   late DateTime currentDateTime ;
 
   void setCurrency(CurrencyType curr){
-    currency = curr;
+    currency.value = curr;
   }
   void setPPC(String _ppc){
     if(_ppc.isNotEmpty && isNumeric(_ppc)){

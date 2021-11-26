@@ -138,14 +138,17 @@ class SubScreens {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: ()=> Get.toNamed("/currencySearch", arguments: [
-                        {"currency":eController.currency}
-                      ]),
+                      onTap: () async{
+                        var res = await Get.toNamed("/currencySearch", arguments: [
+                          {"currency":eController.currency.value}
+                        ]);
+                        eController.currency.value = CurrencyType.values[res];
+                      },
                       child: RichText(
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: eController.currency.strName,
+                              text: eController.currency.value.strName,
                               style: TxtStyle.body1,
                             ),
                             const WidgetSpan(
@@ -221,7 +224,7 @@ class SubScreens {
                     () => Padding(
                         padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
                         child: Text(
-                            eController.currency.strName + ' ' +
+                            eController.currency.value.strName + ' ' +
                                 eController.totalSpent.value.toString(),
                             style: TxtStyle.body4)),
                   ),

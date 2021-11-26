@@ -100,9 +100,10 @@ class _CurrencySearchScreen extends State<CurrencySearchScreen> {
             // csController.saveCoin(rCoin);
             // //save portfolio
             // csController.saveNewPortfolio(rCoin);
-            csController.updateList(index);
+
+            //csController.updateList(index);
             //close screen
-            // Get.offAllNamed('/');
+            Get.back(result: index);
           },
         );
       },
