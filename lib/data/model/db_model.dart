@@ -102,7 +102,18 @@ class SavedInvestmentDao extends DatabaseAccessor<AppDatabase> with _$SavedInves
   Future deleteInvestment(int id) =>
       (delete(savedInvestment)..where((tbl) => tbl.id.equals(id))).go();
 
-
+  Future updateCurrency(int investmentId, CurrencyType currencyType) {
+    // for updates, we use the "companion" version of a generated class. This wraps the
+    // fields in a "Value" type which can be set to be absent using "Value.absent()". This
+    // allows us to separate between "SET category = NULL" (`category: Value(null)`) and not
+    // updating the category at all: `category: Value.absent()`.
+    return (update(savedInvestment)
+      ..where((t) => t.id.equals(investmentId))
+    ).write(SavedInvestmentCompanion(
+      currency: Value(currencyType)
+    ),
+    );
+  }
 }
 
 @UseDao(tables: [SavedCoin])

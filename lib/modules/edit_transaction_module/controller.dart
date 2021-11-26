@@ -54,8 +54,7 @@ class EditTransactionController extends GetxController{
       )
     );
 
-    //Todo update currency
-    //investmentDao.update(table)
+    investmentDao.updateCurrency(investment_sid, currency.value);
   }
 
   void setCurrency(CurrencyType curr){
