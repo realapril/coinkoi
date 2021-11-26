@@ -1,5 +1,6 @@
 
 import 'package:coinkoi/data/enums.dart';
+import 'package:coinkoi/data/model/model.dart';
 import 'package:coinkoi/data/provider/db_provider.dart';
 import 'package:coinkoi/data/services/service.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,36 @@ import 'package:moor/moor.dart' as m;
 
 
 class EditTransactionController extends GetxController{
+  late Rx<CurrencyType> currency;
+  late TransactionType type;
+  late int investment_sid;
+
+  //
+  late RxString currentDateStr;
+  late DateTime currentDateTime;
+  late double ppc;
+  late double quantity;
+  late RxDouble totalSpent;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  EditTransactionController(TransactionType _type, int _investmentId, CurrencyType _currency){
+    type = _type;
+    investment_sid = _investmentId;
+    currency = _currency.obs;
+    //
+    currentDateStr = setCurrentDate().obs;
+    ppc = 100.0;
+    quantity = 1;
+    totalSpent = (100.0).obs;
+  }
+
+
   var transactionDao = Get.find<DbService>().db.savedTransactionDao;
   var investmentDao = Get.find<DbService>().db.savedInvestmentDao;
 
   void saveTransaction(){
-    print(quantity.toString()+"이거이거이거");
-    print(ppc.toString()+"이거이거");
+    // print(quantity.toString()+"이거이거이거");
+    // print(ppc.toString()+"이거이거");
 
     transactionDao.insertTransaction(
       SavedTransactionCompanion(
@@ -31,17 +56,7 @@ class EditTransactionController extends GetxController{
 
     //Todo update currency
     //investmentDao.update(table)
-
   }
-
-  int investment_sid = 0;
-  late TransactionType type ;
-  Rx<CurrencyType> currency = CurrencyType.USD.obs;
-  double ppc = 100.0;
-  double quantity = 1;
-  RxDouble totalSpent = (100.0).obs;
-  RxString currentDateStr = ''.obs;
-  late DateTime currentDateTime ;
 
   void setCurrency(CurrencyType curr){
     currency.value = curr;

@@ -78,7 +78,7 @@ class _Portfolio extends State<PortfolioScreen> {
                           pnl: item.PnL,
                           holdings: item.holdings,
                           totalCost: item.totalCost,
-                          currency: item.currency.symbol,
+                          currency: item.currency,
                         );
                       },
                       separatorBuilder: (_, index) {

@@ -1,3 +1,4 @@
+import 'package:coinkoi/data/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class CustomListTile extends StatelessWidget {
   final double pnl;
   final double holdings;
   final double totalCost;
-  final String currency;
+  final CurrencyType currency;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,7 @@ class CustomListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
 
-                    Text(currency +" "+ totalCost.toString(), textAlign: TextAlign.right ), //TODO make currency changeable
+                    Text(currency.symbol +" "+ totalCost.toString(), textAlign: TextAlign.right ), //TODO make currency changeable
                     Text(holdings.toString() + " " + symbol, textAlign: TextAlign.right)
                   ],
                 ),
@@ -90,7 +91,9 @@ class CustomListTile extends StatelessWidget {
         onTap: ()=> Get.toNamed("/editTransaction", arguments: [
           {"function": "Add"},
           {"invId": investmentId},
-          {"symbol": symbol }
+          {"symbol": symbol },
+          {"currencyType": currency},
+          {"mode": "new"}
         ]),
         child: const Center(
           child: Icon(

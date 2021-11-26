@@ -89,6 +89,8 @@ class _DetailPortfolioScreen extends State<DetailPortfolioScreen> {
                   {"function": "Add"},
                   {"invId": Get.arguments[0]['investmentId']},
                   {"symbol": getInvestment().coin_symbol },
+                  {"currencyType": dpController.investmentInfo[0].currency},
+                  {"mode": "new"}
                 ]);
               },
               child: Text(

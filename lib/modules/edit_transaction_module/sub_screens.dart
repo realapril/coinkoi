@@ -13,40 +13,32 @@ class SubScreens {
     this.investmentId,
     this.symbol,
     this.context,
+    this.currencyType,
   );
 
   final int idx;
   final int investmentId;
   final String symbol;
   final BuildContext context;
+  final CurrencyType currencyType;
 
   Widget skeletonView() {
-    final EditTransactionController eController0 = Get.put(EditTransactionController(), tag: "buy");
-    eController0.currentDateStr.value = eController0.setCurrentDate();
-    eController0.type = TransactionType.buy;
-    eController0.investment_sid = investmentId;
-    final GlobalKey<FormState> _formKey0 = GlobalKey<FormState>();
-
-
-    final EditTransactionController eController1 = Get.put(EditTransactionController(), tag: "sell");
-    eController1.currentDateStr.value = eController1.setCurrentDate();
-    eController1.type = TransactionType.sell;
-    eController1.investment_sid = investmentId;
-    final GlobalKey<FormState> _formKey1 = GlobalKey<FormState>();
+    final EditTransactionController eController0 = Get.put(EditTransactionController(TransactionType.buy, investmentId, currencyType), tag: "buy");
+    final EditTransactionController eController1 = Get.put(EditTransactionController(TransactionType.sell, investmentId, currencyType), tag: "sell");
 
 
     if (idx == 0) {
       return Column(
         children: [
-          Expanded(child: buyAndSellView(eController0, idx, _formKey0)),
-          _bottomButton(eController0, _formKey0),
+          Expanded(child: buyAndSellView(eController0, idx)),
+          _bottomButton(eController0),
         ],
       );
     } else if (idx == 1) {
       return Column(
         children: [
-          Expanded(child: buyAndSellView(eController1, idx, _formKey1)),
-          _bottomButton(eController1, _formKey1),
+          Expanded(child: buyAndSellView(eController1, idx)),
+          _bottomButton(eController1),
         ],
       );
     } else {
@@ -59,7 +51,7 @@ class SubScreens {
     }
   }
 
-  Widget _bottomButton(EditTransactionController eController, GlobalKey<FormState> _formKey) {
+  Widget _bottomButton(EditTransactionController eController) {
     return Container(
       child: Row(
         children: [
@@ -87,7 +79,7 @@ class SubScreens {
               style: OutlinedButton.styleFrom(
                   primary: Colors.white, backgroundColor: koiColor),
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (eController.formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                      SnackBar(
                        content: Container(
@@ -105,7 +97,7 @@ class SubScreens {
                        backgroundColor: Colors.transparent,
                     ),
                   );
-                  eController.validateAndSave(_formKey);
+                  eController.validateAndSave(eController.formKey);
                   Get.back();
                 }
               },
@@ -122,11 +114,11 @@ class SubScreens {
     );
   }
 
-  Widget buyAndSellView(EditTransactionController eController, int idx, GlobalKey<FormState> _formKey) {
+  Widget buyAndSellView(EditTransactionController eController, int idx) {
     return SafeArea(
         child: SingleChildScrollView(
       child: Form(
-        key: _formKey,
+        key: eController.formKey,
         child: Column(children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -142,7 +134,9 @@ class SubScreens {
                         var res = await Get.toNamed("/currencySearch", arguments: [
                           {"currency":eController.currency.value}
                         ]);
-                        eController.currency.value = CurrencyType.values[res];
+                        if(res !=null){
+                          eController.currency.value = CurrencyType.values[res];
+                        }
                       },
                       child: RichText(
                         text: TextSpan(

@@ -1,4 +1,5 @@
 import 'package:coinkoi/core/theme/color_theme.dart';
+import 'package:coinkoi/data/enums.dart';
 import 'package:coinkoi/modules/edit_transaction_module/sub_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,12 +18,20 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
 
   late int invId;
   late String symbol;
+  late CurrencyType currencyType;
+  late String mode;
+
+
   @override
   void initState() {
     super.initState();
     Get.arguments[0]['function'];
     invId = Get.arguments[1]['invId'];
     symbol = Get.arguments[2]['symbol'];
+    currencyType = Get.arguments[3]['currencyType'];
+    mode = Get.arguments[4]['mode'];
+
+
 
     _tabController = TabController(length: 3, vsync: this);
   }
@@ -49,9 +58,9 @@ class _EditTransaction extends State<EditTransactionScreen>  with SingleTickerPr
       body: TabBarView(
         controller: _tabController,
         children: [
-          SubScreens(0, invId, symbol, context).skeletonView(),
-          SubScreens(1, invId, symbol, context).skeletonView(),
-          SubScreens(2, invId, symbol, context).skeletonView(),
+          SubScreens(0, invId, symbol, context, currencyType).skeletonView(),
+          SubScreens(1, invId, symbol, context, currencyType).skeletonView(),
+          SubScreens(2, invId, symbol, context, currencyType).skeletonView(),
         ],
       )
     );
